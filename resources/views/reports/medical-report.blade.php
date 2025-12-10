@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Report - {{ $patient->name }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.2;
+            color: #333;
+            background: #ffffff;
+            font-size: 22px;
+            padding: 8px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #634299;
+            padding: 5px 0;
+            margin-bottom: 5px;
+        }
+
+        .header h1 {
+            color: #000;
+            margin: 0;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .header h2 {
+            color: #666;
+            margin: 5px 0 0 0;
+            font-size: 22px;
+            font-weight: normal;
+        }
+
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .header-table td {
+            vertical-align: middle;
+            padding: 5px;
+        }
+
+        .left-content {
+            width: 60%;
+        }
+
+        .right-content {
+            width: 40%;
+            text-align: right;
+        }
+
+        .report-info {
+            background: #f5f5f5;
+            padding: 5px;
+            margin-bottom: 5px;
+            border: 1px solid #634299;
+            border-left: 4px solid #634299;
+        }
+
+        .report-info .row {
+            display: table;
+            width: 100%;
+            margin-bottom: 3px;
+            table-layout: fixed;
+        }
+
+        .report-info .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .report-info .label {
+            font-weight: bold;
+            color: #634299;
+            display: table-cell;
+            width: 40%;
+            vertical-align: top;
+            padding-right: 10px;
+        }
+
+        .report-info .row>span:not(.label) {
+            display: table-cell;
+            width: 60%;
+            vertical-align: top;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            page-break-inside: avoid;
+        }
+
+        .card-header {
+            background-color: #634299;
+            color: white;
+            padding: 5px 8px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 6px;
+        }
+
+        .row {
+            width: 100%;
+            margin-bottom: 3px;
+            overflow: hidden;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .row:last-child {
+            margin-bottom: 0;
+        }
+
+        .col-md-3 {
+            float: left;
+            width: 25%;
+            padding: 2px 6px;
+            box-sizing: border-box;
+        }
+
+        .col-md-6 {
+            float: left;
+            width: 50%;
+            padding: 2px 6px;
+            box-sizing: border-box;
+        }
+
+        .col-md-9 {
+            float: left;
+            width: 75%;
+            padding: 4px 8px;
+            box-sizing: border-box;
+        }
+
+        .col-md-12,
+        .col-12 {
+            float: left;
+            width: 100%;
+            padding: 4px 8px;
+            box-sizing: border-box;
+        }
+
+        /* Clear floats after rows with specific column combinations */
+        .row:has(.col-md-3):after,
+        .row:has(.col-md-6):after,
+        .row:has(.col-md-9):after,
+        .row:has(.col-md-12):after,
+        .row:has(.col-12):after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .mt-3 {
+            margin-top: 4px;
+        }
+
+        .mt-4 {
+            margin-top: 5px;
+        }
+
+        .mb-3 {
+            margin-bottom: 3px;
+        }
+
+        .mb-2 {
+            margin-bottom: 3px;
+        }
+
+        strong {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 1px;
+            font-size: 22px;
+        }
+
+        .text-muted {
+            color: #666;
+            font-size: 22px;
+            line-height: 1.1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .bg-success,
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .bg-danger,
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .bg-warning,
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .bg-info,
+        .badge-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .bg-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        h6 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #634299;
+            margin-bottom: 3px;
+            margin-top: 4px;
+        }
+
+        .signature-section {
+            margin-top: 15px;
+            display: table;
+            width: 100%;
+        }
+
+        .signature-row {
+            display: table-row;
+        }
+
+        .signature-box {
+            display: table-cell;
+            width: 50%;
+            text-align: center;
+            padding: 15px;
+            vertical-align: top;
+        }
+
+        .signature-line {
+            border-bottom: 2px solid #634299;
+            height: 40px;
+            margin-bottom: 10px;
+            width: 150px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .signature-label {
+            font-weight: bold;
+            color: #634299;
+            font-size: 22px;
+        }
+
+        .footer {
+            margin-top: 15px;
+            padding: 10px;
+            border-top: 2px solid #634299;
+            text-align: center;
+            color: #634299;
+            font-size: 22px;
+            background: #f8f9fa;
+        }
+
+        @page {
+            margin: 0.3cm;
+            size: A4;
+        }
+
+        @media print {
+
+            /* Remove browser headers and footers */
+            @page {
+                margin: 0.3cm;
+                size: A4;
+            }
+
+            body {
+                margin: 0 !important;
+                padding: 5px !important;
+            }
+
+            .card {
+                page-break-inside: avoid;
+                margin-bottom: 5px !important;
+            }
+
+            .card-header {
+                padding: 4px 8px !important;
+                font-size: 22px !important;
+            }
+
+            .card-body {
+                padding: 5px !important;
+            }
+
+            .header {
+                page-break-after: avoid;
+                padding: 5px 0 !important;
+                margin-bottom: 5px !important;
+            }
+
+            .header h1 {
+                font-size: 22px !important;
+                margin: 0 !important;
+            }
+
+            .header h2 {
+                font-size: 22px !important;
+                margin: 2px 0 0 0 !important;
+            }
+
+            .report-info {
+                padding: 5px !important;
+                margin-bottom: 5px !important;
+            }
+
+            .report-info .row {
+                margin-bottom: 3px !important;
+            }
+
+            .row {
+                margin-bottom: 3px !important;
+            }
+
+            strong {
+                font-size: 22px !important;
+                margin-bottom: 1px !important;
+            }
+
+            .text-muted {
+                font-size: 22px !important;
+                line-height: 1.1 !important;
+            }
+
+            .col-md-3,
+            .col-md-6,
+            .col-md-9,
+            .col-md-12 {
+                padding: 1px 4px !important;
+            }
+
+            h6 {
+                font-size: 22px !important;
+                margin-bottom: 3px !important;
+                margin-top: 4px !important;
+            }
+
+            .badge {
+                padding: 2px 6px !important;
+                font-size: 22px !important;
+            }
+
+            .mt-3 {
+                margin-top: 4px !important;
+            }
+
+            .mt-4 {
+                margin-top: 5px !important;
+            }
+
+            .mb-3 {
+                margin-bottom: 3px !important;
+            }
+
+            .signature-section {
+                page-break-before: avoid;
+                margin-top: 8px !important;
+            }
+
+            .footer {
+                page-break-before: avoid;
+                margin-top: 8px !important;
+                padding: 5px !important;
+                font-size: 22px !important;
+            }
+
+            .report-info .row {
+                display: table !important;
+                width: 100% !important;
+                table-layout: fixed !important;
+            }
+
+            .report-info .label {
+                display: table-cell !important;
+                width: 40% !important;
+                vertical-align: top !important;
+                padding-right: 10px !important;
+                font-size: 22px !important;
+            }
+
+            .report-info .row>span:not(.label) {
+                display: table-cell !important;
+                width: 60% !important;
+                vertical-align: top !important;
+                font-size: 22px !important;
+            }
+        }
+
+/* COMMON STYLE FOR ALL BMI BUTTONS */
+.bmi-btn {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 13px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-left: 8px;
+    border: 1px solid transparent;
+}
+
+/* INFO (Bootstrap .btn-info) */
+.bmi-info {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+    color: #000;
+}
+
+/* SUCCESS (Bootstrap .btn-success) */
+.bmi-success {
+    background-color: #198754;
+    border-color: #198754;
+    color: #fff;
+}
+
+/* WARNING (Bootstrap .btn-warning) */
+.bmi-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+}
+
+/* DANGER (Bootstrap .btn-danger) */
+.bmi-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <table class="header-table">
+            <tr>
+                <td class="left-content">
+                    @if (!empty($logo_base64))
+                        <img src="{{ $logo_base64 }}" alt="Logo"
+                            style="max-height: 80px; max-width: 160px; margin-right: 20px; vertical-align: middle;">
+                    @endif
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <h1>{{ strtoupper($medicalRecord->record_type) }}'S REPORT</h1>
+                        <h2 style="
+    font-weight: bold;
+">Sugar Sight Saver Project</h2>
+                    </div>
+                </td>
+                <td class="right-content">
+                    <div class="row">
+                        <span class="label">Report ID</span>
+                        <span>{{ $report_id }}</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Generated On</span>
+                        <span>{{ $generated_at }}</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Appointment Date</span>
+                        <span>{{ $appointment->visit_date_time->format('M d, Y H:i') }}</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Patient Information Card -->
+    <div class="card">
+        <div class="card-header">Patient Information</div>
+        <div class="card-body">
+            <!-- Appointment Details Row -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <strong>Appointment Date</strong>
+                    <span class="text-muted">{{ $appointment->visit_date_time->format('M d, Y H:i') }}</span>
+                </div>
+                <div class="col-md-3">
+                    <strong>Appointment Type</strong>
+                    <span class="badge bg-info">{{ ucfirst($appointment->appointment_type) }}</span>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+            </div>
+
+            <!-- Patient Profile Row -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <strong>Name</strong>
+                    <span class="text-muted">{{ $appointment->patient_name_snapshot ?? $patient->name }}</span>
+                </div>
+                <div class="col-md-3">
+                    <strong>Mobile</strong>
+                    <span
+                        class="text-muted">{{ $appointment->patient_mobile_number_snapshot ?? $patient->mobile_number }}</span>
+                </div>
+                <div class="col-md-3">
+                    <strong>SSSP ID</strong>
+                    <span
+                        class="badge bg-info">{{ $appointment->patient_sssp_id_snapshot ?? $patient->sssp_id }}</span>
+                </div>
+                <div class="col-md-3">
+                    <strong>Email</strong>
+                    <span
+                        class="text-muted">{{ $appointment->patient_email_snapshot ?? ($patient->email ?? 'N/A') }}</span>
+                </div>
+            </div>
+
+            <!-- Basic Details Row -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <strong>Diabetes From</strong>
+                    <span
+                        class="text-muted">{{ $appointment->patient_diabetes_from_snapshot ?? $patient->diabetes_from ? ($appointment->patient_diabetes_from_snapshot ?? $patient->diabetes_from)->format('M Y') : 'N/A' }}</span>
+                </div>
+                <div class="col-md-3">
+                    <strong>Diabetes Since</strong>
+                    <span class="text-muted">
+                        @php
+                            $diabetesFrom = $appointment->patient_diabetes_from_snapshot ?? $patient->diabetes_from;
+                        @endphp
+                        @if ($diabetesFrom)
+                            @php
+                                $today = now();
+                                $years = $today->diffInYears($diabetesFrom);
+                                $months = $today->diffInMonths($diabetesFrom) % 12;
+                                $duration = '';
+                                if ($years > 0) {
+                                    $duration = "Last {$years} year" . ($years > 1 ? 's' : '');
+                                    if ($months > 0) {
+                                        $duration .= " and {$months} month" . ($months > 1 ? 's' : '');
+                                    }
+                                } elseif ($months > 0) {
+                                    $duration = "Last {$months} month" . ($months > 1 ? 's' : '');
+                                } else {
+                                    $duration = 'Less than a month';
+                                }
+                            @endphp
+                            {{ $duration }}
+                        @else
+                            N/A
+                        @endif
+                    </span>
+                </div>
+                <div class="col-md-3">
+                    <strong>Date Of Birth</strong>
+                    <span
+                        class="text-muted">{{ $appointment->patient_date_of_birth_snapshot ?? $patient->date_of_birth ? ($appointment->patient_date_of_birth_snapshot ?? $patient->date_of_birth)->format('M d, Y') : 'N/A' }}</span>
+                </div>
+                <div class="col-md-3">
+                    <strong>Age</strong>
+                    <span class="text-muted">{{ $appointment->patient_age_snapshot ?? $patient->age }} years</span>
+                </div>
+            </div>
+
+            <!-- Demographics Row -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <strong>Sex</strong>
+                    <span
+                        class="badge bg-secondary">{{ ucfirst($appointment->patient_sex_snapshot ?? $patient->sex) }}</span>
+                </div>
+                <div class="col-md-3">
+                    <strong>Hospital ID</strong>
+                    <span
+                        class="text-muted">{{ $appointment->patient_hospital_id_snapshot ?? ($patient->hospital_id ?? 'N/A') }}</span>
+                </div>
+                <div class="col-md-6">
+                    <strong>Short Address</strong>
+                    <span
+                        class="text-muted">{{ $appointment->patient_short_address_snapshot ?? $patient->short_address }}</span>
+                </div>
+            </div>
+
+             @php
+$onTreatment = $appointment->patient_on_treatment_snapshot ?? $patient->on_treatment;
+
+$typeTreatment = $appointment->patient_type_of_treatment_snapshot ?? $patient->type_of_treatment ?? [];
+$typeOthers = in_array('others', $typeTreatment);
+$treatmentOtherValue = $patient->type_of_treatment_other ?? '';
+
+$showOtherTreatment = $typeOthers || !empty($treatmentOtherValue);
+
+$bp = $appointment->patient_bp_snapshot ?? $patient->bp;
+$bpSince = $appointment->patient_bp_since_snapshot ?? $patient->bp_since;
+
+// Calculate BP Duration
+$bpDuration = null;
+if ($bp && $bpSince) {
+    $today = now();
+    $years = $today->diffInYears($bpSince);
+    $months = $today->diffInMonths($bpSince) % 12;
+
+    if ($years > 0) {
+        $bpDuration = "Last {$years} year" . ($years > 1 ? 's' : '');
+        if ($months > 0) {
+            $bpDuration .= " and {$months} month" . ($months > 1 ? 's' : '');
+        }
+    } elseif ($months > 0) {
+        $bpDuration = "Last {$months} month" . ($months > 1 ? 's' : '');
+    } else {
+        $bpDuration = "Less than a month";
+    }
+}
+@endphp
+
+           <!-- Treatment Information Section -->
+<div class="row mt-4">
+    <div class="col-12">
+        <h6>Treatment Information</h6>
+    </div>
+</div>
+
+<!-- Treatment Information Row -->
+<div class="row mb-3">
+    <div class="col-md-3">
+        <strong>On Treatment</strong>
+        <span class="badge {{ $onTreatment ? 'bg-success' : 'bg-danger' }}">
+            {{ $onTreatment ? 'Yes' : 'No' }}
+        </span>
+    </div>
+
+    <div class="col-md-3">
+        <strong>Type Of Treatment</strong>
+        <span class="text-muted">
+            @if($onTreatment && !empty($typeTreatment))
+                {{ implode(', ', array_map('ucfirst', str_replace('_', ' ', $typeTreatment))) }}
+            @else
+                Not specified
+            @endif
+        </span>
+    </div>
+
+    <div class="col-md-3">
+        <strong>Specify Other Treatment</strong>
+        <span class="text-muted">
+            {{ $onTreatment && $showOtherTreatment ? ($treatmentOtherValue ?: 'Not specified') : 'Not applicable' }}
+        </span>
+    </div>
+
+    <div class="col-md-3"></div> <!-- EMPTY col to complete 12 -->
+</div>
+
+           <div class="row mb-3">
+    <div class="col-md-3">
+        <strong>BP</strong>
+        <span class="badge {{ $bp ? 'bg-success' : 'bg-danger' }}">
+            {{ $bp ? 'Yes' : 'No' }}
+        </span>
+    </div>
+
+    <div class="col-md-3">
+        <strong>BP Since</strong>
+        <span class="text-muted">
+            {{ $bp && $bpSince ? $bpSince->format('M Y') : 'N/A' }}
+        </span>
+    </div>
+
+    <div class="col-md-3">
+        <strong>BP Duration</strong>
+        <span class="text-muted">
+            {{ $bpDuration ?? 'N/A' }}
+        </span>
+    </div>
+
+    <div class="col-md-3"></div> <!-- EMPTY last col -->
+</div>
+
+            <!-- Other Diseases Section -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h6>Other Diseases</h6>
+                </div>
+            </div>
+
+            <!-- Other Input Row -->
+            <div class="row mb-3">
+
+    <!-- Any Other Diseases -->
+    <div class="col-md-3">
+        <strong>Any Other Diseases</strong>
+        <span class="text-muted">
+            @php
+                $diseases = $appointment->patient_other_diseases_snapshot ?? $patient->other_diseases;
+            @endphp
+            @if ($diseases && count($diseases) > 0)
+                {{ implode(', ', array_map('ucfirst', str_replace('_', ' ', $diseases))) }}
+            @else
+                None
+            @endif
+        </span>
+    </div>
+
+    <!-- Specify Other Disease (if 'others' selected) -->
+    <div class="col-md-3">
+        @if ($diseases && in_array('others', $diseases))
+            <strong>Specify Other Disease</strong>
+            <span class="text-muted">
+                @php
+                    $otherDisease = $patient->getOriginal('other_diseases_other') ?? $patient->other_diseases_other;
+                @endphp
+                {{ !empty($otherDisease) ? trim($otherDisease) : 'N/A' }}
+            </span>
+        @endif
+    </div>
+
+    <!-- Any Other Input -->
+    <div class="col-md-3">
+        <strong>Any Other Input</strong>
+        <span class="text-muted">
+            {{ $appointment->patient_other_input_snapshot ?? ($patient->other_input ?? 'N/A') }}
+        </span>
+    </div>
+
+    <!-- Empty col to complete 12 -->
+    <div class="col-md-3"></div>
+
+</div>
+
+
+            <!-- Physical Measurements Section -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h6>Physical Measurements</h6>
+                </div>
+            </div>
+           @php
+    $bmi = $appointment->patient_bmi_snapshot ?? null;
+
+    $bmiLabel = null;
+    $bmiColorClass = null;
+
+    if ($bmi) {
+        if ($bmi < 18.5) {
+            $bmiLabel = "Underweight";
+            $bmiColorClass = "bmi-info";
+        } elseif ($bmi >= 18.5 && $bmi <= 22.9) {
+            $bmiLabel = "Normal Weight";
+            $bmiColorClass = "bmi-success";
+        } elseif ($bmi >= 23.0 && $bmi <= 24.9) {
+            $bmiLabel = "Overweight";
+            $bmiColorClass = "bmi-warning";
+        } elseif ($bmi >= 25.0 && $bmi <= 29.9) {
+            $bmiLabel = "Obesity Grade 1";
+            $bmiColorClass = "bmi-danger";
+        } elseif ($bmi >= 30.0 && $bmi <= 34.9) {
+            $bmiLabel = "Obesity Grade 2";
+            $bmiColorClass = "bmi-danger";
+        } elseif ($bmi > 35) {
+            $bmiLabel = "Obesity Grade 3";
+            $bmiColorClass = "bmi-danger";
+        }
+    }
+@endphp
+
+
+            <!-- Physical Measurements Row -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+    <strong>Height</strong>
+    <span class="text-muted">
+        @if($appointment->patient_height_snapshot ?? $patient->height)
+            {{ $appointment->patient_height_snapshot ?? $patient->height }} 
+            {{ ($appointment->patient_height_unit_snapshot ?? $patient->height_unit) == 'feet' ? 'feet' : 'm' }}
+        @else
+            N/A
+        @endif
+    </span>
+</div>
+                <div class="col-md-3">
+                    <strong>Weight (In Kg)</strong>
+                    <span
+                        class="text-muted">{{ $appointment->patient_weight_snapshot ?? $patient->weight ? ($appointment->patient_weight_snapshot ?? $patient->weight) . ' kg' : 'N/A' }}</span>
+                </div>
+             <div class="col-md-3">
+    <strong>BMI</strong>
+    <span class="text-muted">{{ $bmi ?? 'N/A' }}</span>
+
+    @if($bmiLabel)
+        <span class="bmi-btn {{ $bmiColorClass }}">
+            {{ $bmiLabel }}
+        </span>
+    @endif
+</div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Medical Entries Summary -->
+    @if ($medicalRecord->record_type === 'physician' && $physicianRecord)
+        <!-- Physician Entry Summary -->
+        <div class="card">
+            <div class="card-header">Physician Entry</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong>Type of Diabetes</strong>
+                        <span class="text-muted">{{ $physicianRecord->formatted_diabetes_type }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Family History of Diabetes</strong>
+                        <span
+                            class="badge {{ $physicianRecord->family_history_diabetes ? 'bg-success' : 'bg-danger' }}">
+                            {{ $physicianRecord->family_history_diabetes ? 'Yes' : 'No' }}
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Current Treatment</strong>
+                        <span class="text-muted">{{ $physicianRecord->formatted_current_treatment }}</span>
+                    </div>
+                    <!-- Specify Other Treatment for Current Treatment (Physician Entry) -->
+                @php
+                    // This is for "Current Treatment" - use physician record's current_treatment_other
+$physicianRecForCurrent = $medicalRecord->physicianRecord ?? null;
+$showCurrentTreatmentOther = false;
+$currentTreatmentOtherValue = '';
+
+if ($physicianRecForCurrent && $physicianRecForCurrent->exists) {
+    // Get directly from database using raw query
+    $rawValue = \Illuminate\Support\Facades\DB::table('physician_medical_records')
+        ->where('id', $physicianRecForCurrent->id)
+        ->value('current_treatment_other');
+
+    // Check if "others" is in current_treatment
+    $hasCurrentOthers =
+        $physicianRecForCurrent->current_treatment &&
+        is_array($physicianRecForCurrent->current_treatment) &&
+        in_array('others', $physicianRecForCurrent->current_treatment);
+
+    if ($rawValue !== null && $rawValue !== '') {
+        $trimmedValue = trim($rawValue);
+        if ($trimmedValue !== '') {
+                                $currentTreatmentOtherValue = $trimmedValue;
+                                $showCurrentTreatmentOther = true;
+                            } elseif ($hasCurrentOthers) {
+                                $showCurrentTreatmentOther = true;
+                            }
+                        } elseif ($hasCurrentOthers) {
+                            $showCurrentTreatmentOther = true;
+                        }
+                    }
+                @endphp
+                @if ($showCurrentTreatmentOther)
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <strong>Specify Other Treatment</strong>
+                            <span class="text-muted">
+                                @if ($currentTreatmentOtherValue !== '' && is_string($currentTreatmentOtherValue))
+                                    {{ $currentTreatmentOtherValue }}
+                                @else
+                                    Not specified
+                                @endif
+                            </span>
+                        </div>
+                    </div>
+                @endif
+                </div>
+                <div class="row mt-3">
+                    
+                    <div class="col-md-3">
+                        <strong>Compliance</strong>
+                        <span
+                            class="badge
+                        @if ($physicianRecord->compliance === 'good') bg-success
+                        @elseif($physicianRecord->compliance === 'irregular') bg-warning
+                        @elseif($physicianRecord->compliance === 'poor') bg-danger
+                        @else bg-secondary @endif">
+                            {{ $physicianRecord->formatted_compliance }}
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Blood Sugar Type</strong>
+                        <span class="text-muted">{{ $physicianRecord->formatted_blood_sugar_type ?? 'N/A' }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Blood Sugar Value</strong>
+                        <span class="text-muted">{{ $physicianRecord->blood_sugar_value ?? 'N/A' }}</span>
+                    </div>
+                </div>
+                
+                <!-- New Medical Fields -->
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <h6>Additional Medical Information</h6>
+                    </div>
+                </div>
+                <!-- Hypertension and Dyslipidemia -->
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <strong>Hypertension</strong>
+                        <span class="text-muted">
+                            {{ $physicianRecord->hypertension ? 'Yes' : 'No' }}
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Dyslipidemia</strong>
+                         <span class="text-muted">
+                            {{ $physicianRecord->dyslipidemia ? 'Yes' : 'No' }}
+                        </span>
+                    </div>
+                    <!-- Retinopathy -->
+              @if($physicianRecord->retinopathy)
+    <div class="col-md-3">
+        <strong>Retinopathy</strong>
+        <span class="badge {{
+            $physicianRecord->formatted_retinopathy === 'Yes' ? 'bg-success' :
+            ($physicianRecord->formatted_retinopathy === 'No' ? 'bg-danger' : 'bg-warning')
+        }}">
+            {{ $physicianRecord->formatted_retinopathy ?? 'Unknown' }}
+        </span>
+    </div>
+@endif
+                <div class="col-md-3">
+                        <strong>Neuropathy</strong>
+                        <span class="text-muted">{{ $physicianRecord->formatted_neuropathy }}</span>
+                    </div>
+                </div>
+
+            
+
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <strong>Nephropathy</strong>
+                        <span class="text-muted">{{ $physicianRecord->formatted_nephropathy }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Cardiovascular</strong>
+                        <span class="text-muted">{{ $physicianRecord->formatted_cardiovascular }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Foot Disease</strong>
+                        <span class="text-muted">{{ $physicianRecord->formatted_foot_disease }}</span>
+                    </div>
+                    @if ($physicianRecord->others && !empty($physicianRecord->others))
+                        <div class="col-md-3">
+                            <strong>Others</strong>
+                            <span class="text-muted">{{ $physicianRecord->formatted_others }}</span>
+                        </div>
+                    
+                @endif
+                </div>
+
+                
+
+                @if ($physicianRecord->others_details)
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <strong>Other Details</strong>
+                            <span class="text-muted">{{ $physicianRecord->others_details }}</span>
+                        </div>  
+                        <div class="col-md-3">
+                        <strong>HBA1C Range</strong>
+                        <span class="text-muted">{{ $physicianRecord->formatted_hba1c_range ?? 'N/A' }}</span>
+                    </div>
+                     @if ($physicianRecord->other_data)
+                    
+                        <div class="col-md-3">
+                            <strong>Other Data</strong>
+                            <span class="text-muted">{{ $physicianRecord->other_data }}</span>
+                        </div>
+                @endif
+                    </div>
+                @endif
+
+                
+            </div>
+        </div>
+    @endif
+
+    @if ($medicalRecord->record_type === 'ophthalmologist' && $ophthalmologistRecord)
+        <!-- Ophthalmologist Entry Summary -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Ophthalmologist Entry</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="row mt-3">
+                        <div class="col-md-3">
+                            <strong>UCVA RE</strong>
+                            <span class="text-muted ">{{ $ophthalmologistRecord->ucva_re }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <strong>UCVA LE</strong>
+                            <span class="text-muted">{{ $ophthalmologistRecord->ucva_le }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <strong>BCVA RE</strong>
+                            <span class="text-muted">{{ $ophthalmologistRecord->bcva_re }}</span>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <strong>BCVA LE</strong>
+                            <span class="text-muted">{{ $ophthalmologistRecord->bcva_le }}</span>
+                        </div>
+
+                        
+
+                    </div>
+                    <div class="row mt-3">
+                       
+                        <div class="col-md-3">
+                            <strong>IOP RE</strong>
+                            <span class="text-muted">{{ $ophthalmologistRecord->iop_re }}</span>
+                        </div>
+                         <div class="col-md-3">
+                            <strong>IOP LE</strong>
+                            <span class="text-muted">{{ $ophthalmologistRecord->iop_le }}</span>
+                        </div>
+                        
+
+                        <div class="col-md-3">
+                            <strong>Anterior Segment RE</strong>
+                            <span class="text-muted">{{ $ophthalmologistRecord->anterior_segment_re }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Anterior Segment LE</strong>
+                            <span class="text-muted">{{ $ophthalmologistRecord->anterior_segment_le }}</span>
+                        </div>
+
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <strong>Diabetic Retinopathy (DR) RE</strong>
+                        <span
+                            class="badge {{ $ophthalmologistRecord->diabetic_retinopathy_re ? 'bg-success' : 'bg-danger' }}">
+                            {{ $ophthalmologistRecord->diabetic_retinopathy_re ? 'Yes' : 'No' }}
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Diabetic Retinopathy (DR) LE</strong>
+                        <span
+                            class="badge {{ $ophthalmologistRecord->diabetic_retinopathy ? 'bg-success' : 'bg-danger' }}">
+                            {{ $ophthalmologistRecord->diabetic_retinopathy ? 'Yes' : 'No' }}
+                        </span>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <strong>Diabetic Macular Edema (DME) RE</strong>
+                        <span
+                            class="badge {{ $ophthalmologistRecord->diabetic_macular_edema_re ? 'bg-success' : 'bg-danger' }}">
+                            {{ $ophthalmologistRecord->diabetic_macular_edema_re ? 'Yes' : 'No' }}
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Diabetic Macular Edema (DME) LE</strong>
+                        <span
+                            class="badge {{ $ophthalmologistRecord->diabetic_macular_edema ? 'bg-success' : 'bg-danger' }}">
+                            {{ $ophthalmologistRecord->diabetic_macular_edema ? 'Yes' : 'No' }}
+                        </span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <strong>Type of DR RE</strong>
+                        <span class="text-muted">{{ $ophthalmologistRecord->formatted_dr_type_re }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Type of DR LE</strong>
+                        <span class="text-muted">{{ $ophthalmologistRecord->formatted_dr_type }}</span>
+                    </div>
+                    
+                    
+                    <div class="col-md-3">
+                        <strong>Type of DME RE</strong>
+                        <span class="text-muted">{{ $ophthalmologistRecord->formatted_dme_type_re }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Type of DME LE</strong>
+                        <span class="text-muted">{{ $ophthalmologistRecord->formatted_dme_type }}</span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <strong>Investigations</strong>
+                        <span class="text-muted">{{ $ophthalmologistRecord->formatted_investigations }}</span>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <strong>Advised RE</strong>
+                        <span class="text-muted">{{ $ophthalmologistRecord->formatted_advised_re }}</span>
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Advised LE</strong>
+                        <span class="text-muted">{{ $ophthalmologistRecord->formatted_advised }}</span>
+                    </div>
+                </div>
+
+                
+                    <div class="row mt-3">
+                        @if ($ophthalmologistRecord->treatment_done_date || $ophthalmologistRecord->review_date)
+                        <div class="col-md-3">
+                            <strong>Treatment Done Date</strong>
+                            <span
+                                class="text-muted">{{ $ophthalmologistRecord->treatment_done_date ? $ophthalmologistRecord->treatment_done_date->format('M d, Y') : 'Not specified' }}</span>
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Review Date</strong>
+                            <span
+                                class="text-muted">{{ $ophthalmologistRecord->review_date ? $ophthalmologistRecord->review_date->format('M d, Y') : 'Not specified' }}</span>
+                        </div>
+                        @endif
+                         @if ($ophthalmologistRecord->other_remarks)
+                    
+                        <div class="col-md-3">
+                            <strong>Other Remarks</strong>
+                            <span class="text-muted">{{ $ophthalmologistRecord->other_remarks }}</span>
+                        </div>
+                    
+                
+                    </div>
+                @endif
+               
+            </div>
+        </div>
+    @endif
+
+    <!-- Doctor Information -->
+    <div class="card">
+        <div class="card-header">Doctor Information</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>Doctor Name</strong>
+                    <span class="text-muted">{{ $doctor->name }}</span>
+                </div>
+                <div class="col-md-3">
+                    <strong>Hospital</strong>
+                    <span class="text-muted">{{ $doctor->hospital_name ?? 'Not specified' }}</span>
+                </div>
+                 <div class="col-md-3">
+                    <strong>Specialist</strong>
+                    <span class="text-muted">{{ ucfirst(str_replace('_', ' ', $doctor->doctor_type)) }}</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Signature Section -->
+    <div class="signature-section">
+        <div class="signature-row">
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div class="signature-label">Doctor's Signature</div>
+            </div>
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <div class="signature-label">Date</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {{-- <div class="footer">
+        <p>This is a computer-generated medical report from Sugar Sight Saver Project.</p>
+        <p>For any queries, please contact your healthcare provider.</p>
+    </div> --}}
+</body>
+
+</html>

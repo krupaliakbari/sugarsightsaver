@@ -1,0 +1,47 @@
+body {font-family: Arial, sans-serif; padding: 5px; position: relative; font-size: 15px; margin: 0;}
+.watermark {position: fixed; top: 50%; left: 50%; font-size: 240px; color: #cccccc; opacity: 0.2; z-index: -1; transform: translate(-50%, -50%) rotate(-45deg); pointer-events: none;}
+table {width: 100%; border-collapse: collapse; margin-top: 20px;}
+th, td {border: 1px solid #dddddd; text-align: left; padding: 8px;}
+th {background-color: #f2f2f2;}
+.mb-10 {margin-bottom: 10px;}
+h1, h2, h3, h4, h5 {margin-bottom: 0px;}
+div {margin-bottom: 3px;}
+.mb-0{margin-bottom:0px; }
+h2.top_title {font-weight: lighter; font-size: 15px; text-align: center;}
+.center_content {text-align: center; width: 100%; clear: both; font-size: 15px;}
+.second_content {text-align: left; font-size: 14px; width: 100%; clear: both;}
+.italic_content {font-style: italic;}
+.text-center {text-align: center;}
+.all_steps {margin: 10px; width: 100%; clear: both;}
+.all_steps table {width: 100%;}
+.all_steps td {vertical-align: middle;}
+.all_steps input[type="checkbox"] {margin-right: 10px;}
+.step2 li {font-size: 14px; padding: 2px 0px; }
+.all_steps.step2{padding-top:0px;}
+.section5{min-height: 700px; padding-top: 140px;}
+.section6{padding-top:130px; min-height: 700px; width: 100%; clear: both;}
+.all_steps.step5 {padding-top: 50px;}
+.section7{padding-top: 80px; min-height: 700px; display: block; clear: both; width: 100%;}
+.section8{padding-top: 120px; min-height: 700px; display: block; clear: both; width: 100%;}
+.section9{padding-top: 140px;  display: block; clear: both; width: 100%;}
+.section2{min-height: 500px;}
+.section3{padding-top: 140px;  display: block; clear: both; width: 100%;}
+.letterhead_footer,.letterhead_header{width:100%; text-align: center;}
+.section1{width: 100%; display: block; clear: both; clear: both; margin-top:90px; margin-bottom: 30px; }
+.section4{ display: block; min-height: 700px; clear: both; width: 100%; }
+.letterhead_header {
+    position: fixed;
+    top: -45px;
+    width: 100%;
+    left: 0;
+    z-index: -1; /* Adjust the z-index to ensure it's above other elements */
+  }
+
+  .letterhead_footer {
+    position: fixed;
+    bottom: -48px;
+    left: 0;
+    width: 100%;
+    z-index: -1; /* Adjust the z-index to ensure it's above other elements */
+  }
+  .container{min-height: 100vh; display: block; clear: both; padding-top: 60px;}

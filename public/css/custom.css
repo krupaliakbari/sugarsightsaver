@@ -1,0 +1,457 @@
+:root {
+    --main-background-color: #fff;
+    --main-font-family: 'Poppins', sans-serif;
+    --main-font-size: 14px;
+    --main-line-height: 21px;
+    --main-font-weight: 400;
+    --main-font-weight-500: 500;
+    --main-font-weight-700: 700;
+    --main-heading-font-size: 14px;
+    --main-heading-line-height: 21px;
+    --main-font-weight-600: 600;
+    --main-text-color: #2E354C;
+    --main-primary-color: #634299;
+    --main-green-color: #5EBC33;
+    --main-red-color: #bb2d3b;
+    --main-black-color:#2C2C2C;
+  }
+
+/* Doctor Dashboard Styles */
+.doctor-hero-card {
+    background: linear-gradient(135deg, var(--main-primary-color) 0%, #7B5FB8 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    color: white;
+    box-shadow: 0 10px 30px rgba(99, 66, 153, 0.3);
+    margin-bottom: 2rem;
+}
+
+.hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.welcome-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+
+.welcome-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0.5rem 0 0 0;
+}
+
+.hero-actions .btn {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+}
+
+/* Status Cards */
+.status-card, .info-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.status-card:hover, .info-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.status-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.status-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    background: var(--main-primary-color);
+}
+
+.status-content h5 {
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    color: var(--main-text-color);
+}
+
+.status-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-approved {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-rejected {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.info-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.info-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--main-primary-color);
+    background: rgba(99, 66, 153, 0.1);
+}
+
+.info-content h5 {
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    color: var(--main-text-color);
+}
+
+.info-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Profile Card */
+.profile-card, .quick-actions-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+}
+
+.breadcrumb-style-one {
+    background: linear-gradient(135deg, var(--main-primary-color) 0%, #7B5FB8 100%);
+    padding: 25px;
+    color: #fff !important;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--main-primary-color) 0%, #7B5FB8 100%);
+    color: white !important;
+    padding: 1.5rem !important;
+    margin: 0;
+}
+
+.breadcrumb .breadcrumb-item.active{
+    color:#ccc !important;
+}
+
+.card-header h4, .welcome-subtitle, .card-header h5, .card-header p,.breadcrumb-style-one a,.card-header h6 {
+
+  color: white !important;
+}
+
+.modal-content {
+    background: #fff !important;
+}
+
+.card-header h4 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.profile-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.profile-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid var(--main-primary-color);
+}
+
+.profile-label {
+    font-weight: 600;
+    color: var(--main-text-color);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-value {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Quick Actions */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.action-btn.primary {
+    background: var(--main-primary-color);
+    color: white;
+}
+
+.action-btn.secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.action-btn.success {
+    background: #28a745;
+    color: white;
+}
+
+.action-btn:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Alert Cards */
+.alert-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid;
+}
+
+.alert-card.warning {
+    background: #fff3cd;
+    border-left-color: #ffc107;
+    color: #856404;
+}
+
+.alert-card.danger {
+    background: #f8d7da;
+    border-left-color: #dc3545;
+    color: #721c24;
+}
+
+.alert-icon {
+    font-size: 1.5rem;
+    margin-top: 0.25rem;
+}
+
+.alert-content h4 {
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+}
+
+.alert-content p {
+    margin: 0 0 0.5rem 0;
+}
+
+.alert-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .welcome-title {
+        font-size: 2rem;
+    }
+    
+    .status-card, .info-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .action-buttons {
+        gap: 0.75rem;
+    }
+    
+    .action-btn {
+        padding: 0.75rem;
+    }
+}
+
+/* User Management Styles */
+.status-toggle {
+    cursor: pointer;
+}
+
+.status-toggle:checked {
+    background-color: var(--main-green-color);
+    border-color: var(--main-green-color);
+}
+
+.avatar-initial {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.badge-light-info {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.badge-light-success {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+}
+
+.badge-light-warning {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.badge-light-danger {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(99, 66, 153, 0.05);
+}
+
+.doctor-checkbox:checked {
+    background-color: var(--main-primary-color);
+    border-color: var(--main-primary-color);
+}
+
+/* Doctor Detail Page Styles */
+.avatar-initial {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.widget-content .table td {
+    padding: 0.75rem 0.5rem;
+    vertical-align: middle;
+}
+
+.widget-content .table td.fw-bold {
+    color: var(--main-text-color);
+    font-weight: 600;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* Table Alignment Fixes */
+.table th,
+.table td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.table th {
+    font-weight: 600;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Ensure consistent padding between th and td */
+.table thead th {
+    padding: 0.75rem 1rem;
+}
+
+.table tbody td {
+    padding: 0.75rem 1rem;
+}
+
+/* Responsive table adjustments */
+@media (max-width: 768px) {
+    .table th,
+    .table td {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    .widget-content .table td.fw-bold {
+        width: 35% !important;
+    }
+}
+
+/* Table responsive wrapper */
+.table-responsive {
+    border-radius: 0.375rem;
+    overflow-x: auto;
+}
+
+/* Ensure proper alignment for action buttons */
+.table td .btn-group {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.table td .btn-group .btn {
+    white-space: nowrap;
+}

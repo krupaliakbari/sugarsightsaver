@@ -1,0 +1,1143 @@
+<x-base-layout :scrollspy="false">
+
+    <x-slot:pageTitle>
+        {{$title}}
+    </x-slot>
+
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <x-slot:headerFiles>
+        <link rel="stylesheet" href="{{asset('plugins/notification/snackbar/snackbar.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/sweetalerts2/sweetalerts2.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/flatpickr/flatpickr.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        @vite(['resources/scss/light/assets/components/tabs.scss'])
+        @vite(['resources/scss/light/assets/elements/alert.scss'])
+        @vite(['resources/scss/light/plugins/sweetalerts2/custom-sweetalert.scss'])
+        @vite(['resources/scss/light/plugins/notification/snackbar/custom-snackbar.scss'])
+        @vite(['resources/scss/light/plugins/flatpickr/custom-flatpickr.scss'])
+
+        <style>
+            .pagination {
+    margin-bottom: 0;
+    flex-wrap: wrap;
+}
+
+.page-link {
+    color: #4361ee;
+    border: 1px solid #dee2e6;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.page-item.active .page-link {
+    background-color: #4361ee;
+    border-color: #4361ee;
+    color: white;
+}
+
+.page-link:hover {
+    color: #4361ee;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+
+/* Responsive pagination */
+@media (max-width: 576px) {
+    .pagination {
+        justify-content: center;
+    }
+
+    .page-link {
+        padding: 0.375rem 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .d-flex.justify-content-between.align-items-center.mt-4 {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem !important;
+    }
+
+    .text-muted {
+        order: 2;
+    }
+
+    nav {
+        order: 1;
+    }
+}
+            /* Compact card headers */
+            .card-header {
+                padding: 0.5rem 1rem !important;
+                background-color: #6366f1 !important;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                min-height: auto !important;
+            }
+
+            .card-header .card-title {
+                margin-bottom: 0 !important;
+                font-size: 0.9rem !important;
+                font-weight: 600;
+                color: #ffffff;
+                line-height: 1.2 !important;
+            }
+
+            /* Make form labels same size as card title */
+            .form-label {
+                font-size: 0.9rem !important;
+            }
+
+            /* Filter Section Styles */
+            .filter-section {
+                background: #f8f9fa;
+                border-radius: 8px;
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .filter-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: end;
+            }
+
+            .filter-group {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .filter-buttons {
+                display: flex;
+                gap: 0.5rem;
+                align-items: end;
+            }
+
+            .btn-filter {
+                white-space: nowrap;
+                min-width: 120px;
+                font-size: 1rem;
+                padding: 0.75rem 1rem;
+                height: 48px;
+            }
+
+            .btn-clear {
+                white-space: nowrap;
+                min-width: 100px;
+                font-size: 1rem;
+                padding: 0.75rem 1rem;
+                height: 48px;
+            }
+
+            /* Sortable column headers */
+            .sortable-header {
+                cursor: pointer;
+                user-select: none;
+                position: relative;
+                padding-right: 20px !important;
+            }
+
+            .sortable-header:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+
+            .sort-arrows {
+                display: inline-flex;
+                flex-direction: column;
+                margin-left: 5px;
+                font-size: 10px;
+                line-height: 8px;
+                vertical-align: middle;
+            }
+
+            .sort-arrow {
+                color: #ccc;
+                transition: color 0.2s;
+            }
+
+            .sort-arrow.active {
+                color: #4361ee;
+            }
+      @media (max-width: 768px) {
+    .col-md-3 {
+        margin-top: 5px;
+    }
+}
+
+        </style>
+    </x-slot>
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <div class="row mt-3">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="widget-content widget-content-area br-8">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="d-flex  justify-content-between align-items-center mb-4">
+    <h4 class="mb-0 text-nowrap" style="
+    margin-right: 10px;">View Appointments</h4>
+    <div class="d-flex flex-column flex-md-row gap-2 w-100 w-md-auto" style="
+    justify-content: end;">
+        <a href="{{ route('doctor.patients.add-appointment-existing') }}?patient_id={{ $patient->id }}"
+           class="btn btn-primary flex-fill flex-md-grow-0">
+            <i class="fas fa-plus me-2"></i>Add New Appointment
+        </a>
+
+        <a href="{{ route('doctor.patients.edit', $patient->id ) }}"
+           class="btn btn-warning flex-fill flex-md-grow-0">
+            <i class="fas fa-edit me-2"></i>Edit Patient
+        </a>
+
+        <a href="{{ route('doctor.patients.index') }}"
+           class="btn btn-secondary flex-fill flex-md-grow-0">
+            <i class="fas fa-arrow-left me-2"></i>Back
+        </a>
+    </div>
+</div>
+                        <!-- Patient Information Card -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-title">Patient Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Name, Mobile, SSSP ID, Email Row -->
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <strong>Name</strong><br>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-sm bg-primary text-white rounded-circle me-2 d-flex align-items-center justify-content-center">
+                                                {{ substr($patient->name, 0, 1) }}
+                                            </div>
+                                            <span class="text-muted">{{ $patient->name }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Mobile</strong><br>
+                                        <span class="text-muted">{{ $patient->mobile_number }}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>SSSP ID</strong><br>
+                                        <span class="badge bg-info">{{ $patient->sssp_id }}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Email</strong><br>
+                                        <span class="text-muted">{{ $patient->email ?? 'N/A' }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Diabetes From, Diabetes Since Row -->
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <strong>Diabetes From</strong><br>
+                                        <span class="text-muted">{{ $patient->diabetes_from ? $patient->diabetes_from->format('M Y') : 'N/A' }}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Diabetes Since</strong><br>
+                                        <span class="text-muted" id="diabetes_duration_display">
+                                            @if($patient->diabetes_from)
+                                                <span data-diabetes-from="{{ $patient->diabetes_from->format('Y-m-d') }}"></span>
+                                            @else
+                                                N/A
+                                            @endif
+                                        </span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Date of Birth</strong><br>
+                                        <span class="text-muted">{{ $patient->date_of_birth ? $patient->date_of_birth->format('M d, Y') : 'N/A' }}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Age</strong><br>
+                                        <span class="text-muted">{{ $patient->age }} years</span>
+                                    </div>
+                                </div>
+
+                                <!-- Sex, Hospital ID, Short Address Row -->
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <strong>Sex</strong><br>
+                                        <span class="badge bg-secondary">{{ ucfirst($patient->sex) }}</span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>Hospital ID</strong><br>
+                                        <span class="text-muted">{{ $patient->hospital_id ?? 'N/A' }}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Short Address</strong><br>
+                                        <span class="text-muted">{{ $patient->short_address }}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Treatment Information Section -->
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <h6 class="text-primary mb-3">Treatment Information</h6>
+                                    </div>
+                                </div>
+                                  <!-- Specify Other Treatment Row - Check appointment-specific first, then patient-level -->
+                                @php
+                                    $showSpecifyOther = false;
+                                    $otherTreatment = '';
+
+                                    // First, check most recent appointment's physician record for current_treatment_other
+
+
+                                    // Fallback to patient's type_of_treatment_other
+                                    if (!$showSpecifyOther || $otherTreatment === '') {
+                                        if ($patient->type_of_treatment_other) {
+                                            $patientTreatmentOther = trim($patient->type_of_treatment_other);
+                                            if($patientTreatmentOther !== '') {
+                                                $otherTreatment = $patientTreatmentOther;
+                                                $showSpecifyOther = true;
+                                            }
+                                        }
+                                    }
+                                @endphp
+                                <!-- Treatment Information Row -->
+                               <div class="row mb-3">
+    <div class="col-md-3">
+        <strong>On Treatment</strong><br>
+        <span class="badge {{ $patient->on_treatment ? 'bg-success' : 'bg-danger' }}">
+            {{ $patient->on_treatment ? 'Yes' : 'No' }}
+        </span>
+    </div>
+    <div class="col-md-3">
+        <strong>Type of Treatment</strong><br>
+        <span class="text-muted">
+            @if($patient->on_treatment && $patient->type_of_treatment && count($patient->type_of_treatment) > 0)
+                {{ implode(', ', array_map('ucfirst', str_replace('_', ' ', $patient->type_of_treatment))) }}
+            @else
+                Not specified
+            @endif
+        </span>
+    </div>
+    @if($patient->on_treatment && $showSpecifyOther && $otherTreatment !== '')
+    <div class="col-md-3">
+        <strong>Specify Other Treatment</strong><br>
+        <span class="text-muted">{{ $otherTreatment }}</span>
+    </div>
+    @endif
+</div>
+
+                               
+                               
+                                <!-- Specify Other Treatment Row -->
+                                <div class="row mb-3">
+                                    
+                                    
+                                    <div class="col-md-3">
+                                        <strong>BP</strong><br>
+                                        <span class="badge {{ $patient->bp ? 'bg-success' : 'bg-danger' }}">
+                                            {{ $patient->bp ? 'Yes' : 'No' }}
+                                        </span>
+                                    </div>
+                                    @if($patient->bp)
+                                    <div class="col-md-3">
+                                        <strong>BP Since</strong><br>
+                                        <span class="text-muted">{{ $patient->bp_since ? $patient->bp_since->format('M Y') : 'N/A' }}</span>
+                                    </div>
+                                    @endif
+                                    @if($patient->bp && $patient->bp_since)
+                                    <div class="col-md-3">
+                                        <strong>BP Duration</strong><br>
+                                        <span class="text-muted" id="bp_duration_display">
+                                            <span data-bp-since="{{ $patient->bp_since->format('Y-m-d') }}"></span>
+                                        </span>
+                                    </div>
+                                    @endif
+                                </div>
+                               
+
+                                <!-- Other Diseases Section -->
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <h6 class="text-primary mb-3">Other Diseases</h6>
+                                    </div>
+                                </div>
+
+                                <!-- Other Diseases Row -->
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <strong>Any Other Diseases</strong><br>
+                                        <span class="text-muted">
+                                            @if($patient->other_diseases && count($patient->other_diseases) > 0)
+                                                {{ implode(', ', array_map('ucfirst', str_replace('_', ' ', $patient->other_diseases))) }}
+                                            @else
+                                                None
+                                            @endif
+                                        </span>
+                                    </div>
+                                    @if($patient->other_diseases && in_array('others', $patient->other_diseases) && $patient->other_diseases_other)
+                                    <div class="col-md-3">
+                                        <strong>Specify Other Disease</strong><br>
+                                        <span class="text-muted">{{ $patient->other_diseases_other }}</span>
+                                    </div>
+                                    @endif
+                                    <div class="col-md-3">
+                                        <strong>Any Other Input</strong><br>
+                                        <span class="text-muted">{{ $patient->other_input ?? 'N/A' }}</span>
+                                    </div>
+                                </div>
+
+                                
+
+                                <!-- Physical Measurements Section -->
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <h6 class="text-primary mb-3">Physical Measurements</h6>
+                                    </div>
+                                </div>
+
+                                <!-- Physical Measurements Row -->
+                                <div class="row mb-3">
+                                     <div class="col-md-3">
+    <strong>Height</strong><br>
+    <span class="text-muted">
+        @if($height = $appointment->patient_height_snapshot ?? $patient->height)
+            {{ $height }}
+            {{ ($appointment->patient_height_unit_snapshot ?? $patient->height_unit) == 'feet' ? 'feet' : 'm' }}
+        @else
+            N/A
+        @endif
+    </span>
+</div>
+                                    <div class="col-md-3">
+                                        <strong>Weight (In Kg)</strong><br>
+                                        <span class="text-muted">{{ $patient->weight ? $patient->weight . ' kg' : 'N/A' }}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>BMI</strong><br>
+                                        <span class="text-muted" id="bmi-value" data-bmi="{{ $latestBmi ?? $patient->bmi ?? '' }}">{{ $latestBmi ?? $patient->bmi ?? 'N/A' }}</span>
+                                        <button type="button" id="bmi-btn-underweight" class="btn btn-sm btn-outline-secondary ms-2" style="display: none; pointer-events: none;">Underweight</button>
+                                        <button type="button" id="bmi-btn-normal" class="btn btn-sm btn-outline-secondary ms-2" style="display: none; pointer-events: none;">Normal Weight</button>
+                                        <button type="button" id="bmi-btn-overweight" class="btn btn-sm btn-outline-secondary ms-2" style="display: none; pointer-events: none;">Overweight</button>
+                                        <button type="button" id="bmi-btn-obesity1" class="btn btn-sm btn-outline-secondary ms-2" style="display: none; pointer-events: none;">Obesity Grade 1</button>
+                                        <button type="button" id="bmi-btn-obesity2" class="btn btn-sm btn-outline-secondary ms-2" style="display: none; pointer-events: none;">Obesity Grade 2</button>
+                                        <button type="button" id="bmi-btn-obesity3" class="btn btn-sm btn-outline-secondary ms-2" style="display: none; pointer-events: none;">Obesity Grade 3</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Appointments and Medical Records Table -->
+                        <div class="card" id="appointments-section">
+                            <div class="card-header">
+                                <h5 class="card-title">Manage Appointments</h5>
+                            </div>
+
+                            <!-- Filter Controls -->
+                            <div class="filter-section" style="margin: 0; border-radius: 0; border-bottom: 1px solid rgba(0,0,0,0.125);">
+    <form method="GET" action="{{ route('doctor.patients.medical-records', $patient->id) }}#appointments-section">
+        <div class="filter-row">
+            <div class="filter-group">
+                <label class="form-label small text-muted mb-1">Date</label>
+                <input type="text" class="form-control flatpickr-input" id="appointment_date" name="appointment_date" 
+                       placeholder="Select Date" 
+                      value="{{ request('appointment_date') }}">
+                     
+            </div>
+            <div class="filter-buttons">
+                <button type="submit" class="btn btn-primary btn-filter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search me-1">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21l-4.35-4.35"></path>
+                    </svg>
+                    Search
+                </button>
+                 @if(request()->hasAny(['appointment_date']))
+                    <a href="{{ route('doctor.patients.medical-records', $patient->id) }}#appointments-section" class="btn btn-outline-secondary btn-clear">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-1">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                        Clear
+                    </a>
+                @endif
+            </div>
+        </div>
+    </form>
+</div>
+
+                            <div class="card-body">
+                                <div id="appointments-table-container">
+                                @if(session()->has('error'))
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{session()->get('error')}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+
+                                @if(session()->has('success'))
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        {{session()->get('success')}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+
+                                @if($appointments->count() > 0)
+                                    @php
+                                        $sortBy = request('sort_by', 'visit_date_time');
+                                        $sortDirection = request('sort_direction', 'desc');
+
+                                        function getSortUrl($column, $currentSortBy, $currentDirection) {
+                                            $direction = 'asc';
+                                            if ($column === $currentSortBy) {
+                                                $direction = $currentDirection === 'asc' ? 'desc' : 'asc';
+                                            }
+
+                                            $params = array_merge(request()->all(), [
+                                                'sort_by' => $column,
+                                                'sort_direction' => $direction
+                                            ]);
+                                            unset($params['page']); // Reset to first page when sorting
+
+                                            return request()->url() . '?' . http_build_query($params) . '#appointments-section';
+                                        }
+                                    @endphp
+                                    <!-- Desktop Table View -->
+                                    <div class="d-none d-lg-block">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="sortable-header" data-sort-column="date">
+                                                            Visit Date
+                                                            <span class="sort-arrows">
+                                                                <span class="sort-arrow {{ ($sortBy === 'date' || $sortBy === 'visit_date_time') && $sortDirection === 'asc' ? 'active' : '' }}">▲</span>
+                                                                <span class="sort-arrow {{ ($sortBy === 'date' || $sortBy === 'visit_date_time') && $sortDirection === 'desc' ? 'active' : '' }}">▼</span>
+                                                            </span>
+                                                        </th>
+                                                        @if(Auth::user()->doctor_type === 'ophthalmologist')
+                                                            <th>Diabetic Retinopathy (DR)</th>
+                                                            <th>Diabetic Macular Edema (DME)</th>
+                                                            <th>Type of DR</th>
+                                                        @else
+                                                            <th>Type of Diabetes</th>
+                                                            <th>Current Treatment</th>
+                                                            <th>Retinopathy</th>
+                                                        @endif
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($appointments as $appointment)
+                                                        <tr></tr>
+                                                            <td>
+                                                                <div>
+                                                                    <strong>{{ $appointment->visit_date_time->format('M d, Y') }}</strong>
+                                                                    <small class="text-muted"> {{ $appointment->visit_date_time->format('H:i') }}</small>
+                                                                </div>
+                                                            </td>
+                                                            @php
+                                                                $physicianRecord = $appointment->medicalRecords->where('record_type', 'physician')->first()?->physicianRecord;
+                                                                $ophthalmologistRecord = $appointment->medicalRecords->where('record_type', 'ophthalmologist')->first()?->ophthalmologistRecord;
+                                                            @endphp
+                                                            @if(Auth::user()->doctor_type === 'ophthalmologist')
+                                                                <td>
+                                                                    @if($ophthalmologistRecord)
+                                                                        <span class="badge {{ $ophthalmologistRecord->diabetic_retinopathy ? 'bg-success' : 'bg-danger' }}">
+                                                                            {{ $ophthalmologistRecord->diabetic_retinopathy ? 'Yes' : 'No' }}
+                                                                        </span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($ophthalmologistRecord)
+                                                                        <span class="badge {{ $ophthalmologistRecord->diabetic_macular_edema ? 'bg-success' : 'bg-danger' }}">
+                                                                            {{ $ophthalmologistRecord->diabetic_macular_edema ? 'Yes' : 'No' }}
+                                                                        </span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($ophthalmologistRecord && $ophthalmologistRecord->type_of_dr)
+                                                                        <span class="small">{{ $ophthalmologistRecord->formatted_dr_type }}</span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                            @else
+                                                                <td>
+                                                                    @if($physicianRecord)
+                                                                        <span class="badge bg-primary">{{ $physicianRecord->formatted_diabetes_type }}</span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($physicianRecord && $physicianRecord->current_treatment)
+                                                                        <span class="small">{{ $physicianRecord->formatted_current_treatment }}</span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($physicianRecord && $physicianRecord->retinopathy)
+                                                                        <span class="small">{{ $physicianRecord->formatted_retinopathy }}</span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                            @endif
+                                                            <td>
+                                                                <div class="d-flex gap-1">
+                                                                    <a href="{{ route('doctor.patients.appointments.edit', $appointment->id) }}"
+                                                                       class="btn btn-sm btn-warning"
+                                                                       title="Edit Appointment"
+                                                                       style="padding: 0.375rem 0.5rem;">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                                        </svg>
+                                                                    </a>
+                                                                    @if($appointment->medicalRecords->count() > 0)
+                                                                        @php
+                                                                            $firstMedicalRecord = $appointment->medicalRecords->first();
+                                                                        @endphp
+                                                                        <a href="{{ route('doctor.medical.summary', $firstMedicalRecord->id) }}"
+                                                                           class="btn btn-sm btn-info"
+                                                                           title="View Appointment Summary"
+                                                                           style="padding: 0.375rem 0.5rem;">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                                                <circle cx="12" cy="12" r="3"></circle>
+                                                                            </svg>
+                                                                        </a>
+                                                                    @endif
+
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Mobile Table View -->
+                                    <div class="d-lg-none">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="sortable-header" data-sort-column="date">
+                                                            Visit Date
+                                                            <span class="sort-arrows">
+                                                                <span class="sort-arrow {{ ($sortBy === 'date' || $sortBy === 'visit_date_time') && $sortDirection === 'asc' ? 'active' : '' }}">▲</span>
+                                                                <span class="sort-arrow {{ ($sortBy === 'date' || $sortBy === 'visit_date_time') && $sortDirection === 'desc' ? 'active' : '' }}">▼</span>
+                                                            </span>
+                                                        </th>
+                                                        @if(Auth::user()->doctor_type === 'ophthalmologist')
+                                                            <th>Diabetic Retinopathy (DR)</th>
+                                                            <th>Diabetic Macular Edema (DME)</th>
+                                                            <th>Type of DR</th>
+                                                        @else
+                                                            <th>Type of Diabetes</th>
+                                                            <th>Current Treatment</th>
+                                                            <th>Retinopathy</th>
+                                                        @endif
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($appointments as $appointment)
+                                                        <tr>
+                                                            <td>
+                                                                <div>
+                                                                    <strong>{{ $appointment->visit_date_time->format('M d, Y') }}</strong>
+                                                                    <small class="text-muted"> {{ $appointment->visit_date_time->format('H:i') }}</small>
+                                                                </div>
+                                                            </td>
+                                                            @php
+                                                                $physicianRecord = $appointment->medicalRecords->where('record_type', 'physician')->first()?->physicianRecord;
+                                                                $ophthalmologistRecord = $appointment->medicalRecords->where('record_type', 'ophthalmologist')->first()?->ophthalmologistRecord;
+                                                            @endphp
+                                                            @if(Auth::user()->doctor_type === 'ophthalmologist')
+                                                                <td>
+                                                                    @if($ophthalmologistRecord)
+                                                                        <span class="badge {{ $ophthalmologistRecord->diabetic_retinopathy ? 'bg-success' : 'bg-danger' }}">
+                                                                            {{ $ophthalmologistRecord->diabetic_retinopathy ? 'Yes' : 'No' }}
+                                                                        </span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($ophthalmologistRecord)
+                                                                        <span class="badge {{ $ophthalmologistRecord->diabetic_macular_edema ? 'bg-success' : 'bg-danger' }}">
+                                                                            {{ $ophthalmologistRecord->diabetic_macular_edema ? 'Yes' : 'No' }}
+                                                                        </span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($ophthalmologistRecord && $ophthalmologistRecord->type_of_dr)
+                                                                        <span class="small">{{ $ophthalmologistRecord->formatted_dr_type }}</span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                            @else
+                                                                <td>
+                                                                    @if($physicianRecord)
+                                                                        <span class="badge bg-primary">{{ $physicianRecord->formatted_diabetes_type }}</span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($physicianRecord && $physicianRecord->current_treatment)
+                                                                        <span class="small">{{ $physicianRecord->formatted_current_treatment }}</span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($physicianRecord && $physicianRecord->retinopathy)
+                                                                        <span class="small">{{ $physicianRecord->formatted_retinopathy }}</span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                            @endif
+                                                            <td>
+                                                                <div class="d-flex gap-1">
+                                                                    <a href="{{ route('doctor.patients.appointments.edit', $appointment->id) }}"
+                                                                       class="btn btn-sm btn-warning"
+                                                                       title="Edit Appointment"
+                                                                       style="padding: 0.375rem 0.5rem;">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                                        </svg>
+                                                                    </a>
+                                                                    @if($appointment->medicalRecords->count() > 0)
+                                                                        @php
+                                                                            $firstMedicalRecord = $appointment->medicalRecords->first();
+                                                                        @endphp
+                                                                        <a href="{{ route('doctor.medical.summary', $firstMedicalRecord->id) }}"
+                                                                           class="btn btn-sm btn-info"
+                                                                           title="View Appointment Summary"
+                                                                           style="padding: 0.375rem 0.5rem;">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                                                <circle cx="12" cy="12" r="3"></circle>
+                                                                            </svg>
+                                                                        </a>
+                                                                    @endif
+                                                                    <!-- <button type="button"
+                                                                            class="btn btn-sm btn-danger"
+                                                                            title="Delete Appointment"
+                                                                            style="padding: 0.375rem 0.5rem;"
+                                                                            onclick="confirmDeleteAppointment({{ $appointment->id }})">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                                        </svg>
+                                                                    </button> -->
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pagination -->
+                                    <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3">
+    <div class="text-muted">
+        Showing {{ $appointments->firstItem() }} to {{ $appointments->lastItem() }} of {{ $appointments->total() }} appointments
+    </div>
+
+    <!-- Custom Pagination Styling -->
+    @if($appointments->hasPages())
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-sm mb-0">
+                {{-- Previous Page Link --}}
+                @if($appointments->onFirstPage())
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                @else
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $appointments->previousPageUrl() }}{{ request()->getQueryString() ? '&' . http_build_query(request()->except('page')) : '' }}" rel="prev">Previous</a>
+                    </li>
+                @endif
+
+                {{-- Pagination Elements --}}
+                @foreach($appointments->getUrlRange(1, $appointments->lastPage()) as $page => $url)
+                    @if($page == $appointments->currentPage())
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ $page }}</span>
+                        </li>
+                    @else
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $url }}{{ request()->getQueryString() ? '&' . http_build_query(request()->except('page')) : '' }}">{{ $page }}</a>
+                        </li>
+                    @endif
+                @endforeach
+
+                {{-- Next Page Link --}}
+                @if($appointments->hasMorePages())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $appointments->nextPageUrl() }}{{ request()->getQueryString() ? '&' . http_build_query(request()->except('page')) : '' }}" rel="next">Next</a>
+                    </li>
+                @else
+                    <li class="page-item disabled">
+                        <span class="page-link">Next</span>
+                    </li>
+                @endif
+            </ul>
+        </nav>
+    @endif
+</div>
+                                @else
+                                    @php
+                                        $sortBy = request('sort_by', 'visit_date_time');
+                                        $sortDirection = request('sort_direction', 'desc');
+
+                                        function getSortUrlEmpty($column, $currentSortBy, $currentDirection) {
+                                            $direction = 'asc';
+                                            if ($column === $currentSortBy) {
+                                                $direction = $currentDirection === 'asc' ? 'desc' : 'asc';
+                                            }
+
+                                            $params = array_merge(request()->all(), [
+                                                'sort_by' => $column,
+                                                'sort_direction' => $direction
+                                            ]);
+                                            unset($params['page']); // Reset to first page when sorting
+
+                                            return request()->url() . '?' . http_build_query($params) . '#appointments-section';
+                                        }
+                                    @endphp
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="sortable-header" data-sort-column="date">
+                                                        Visit Date
+                                                        <span class="sort-arrows">
+                                                            <span class="sort-arrow {{ ($sortBy === 'date' || $sortBy === 'visit_date_time') && $sortDirection === 'asc' ? 'active' : '' }}">▲</span>
+                                                            <span class="sort-arrow {{ ($sortBy === 'date' || $sortBy === 'visit_date_time') && $sortDirection === 'desc' ? 'active' : '' }}">▼</span>
+                                                        </span>
+                                                    </th>
+                                                    @if(Auth::user()->doctor_type === 'ophthalmologist')
+                                                        <th>Diabetic Retinopathy (DR)</th>
+                                                        <th>Diabetic Macular Edema (DME)</th>
+                                                        <th>Type of DR</th>
+                                                    @else
+                                                        <th>Type of Diabetes</th>
+                                                        <th>Current Treatment</th>
+                                                        <th>Retinopathy</th>
+                                                    @endif
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="{{ Auth::user()->doctor_type === 'ophthalmologist' ? '5' : '5' }}" class="text-center text-muted">No appointments found</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+    <x-slot:footerFiles>
+        <script src="{{asset('plugins/notification/snackbar/snackbar.min.js')}}"></script>
+        <script src="{{asset('plugins/sweetalerts2/sweetalerts2.min.js')}}"></script>
+        <script src="{{asset('plugins/flatpickr/flatpickr.js')}}"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Calculate and display Diabetes Duration
+                const diabetesDurationDisplay = document.getElementById('diabetes_duration_display');
+                if (diabetesDurationDisplay) {
+                    const diabetesFromSpan = diabetesDurationDisplay.querySelector('[data-diabetes-from]');
+                    if (diabetesFromSpan) {
+                        const diabetesFromDate = diabetesFromSpan.getAttribute('data-diabetes-from');
+                        if (diabetesFromDate) {
+                            const duration = calculateDuration(diabetesFromDate);
+                            diabetesDurationDisplay.textContent = duration;
+                        }
+                    }
+                }
+
+                // Calculate and display BP Duration
+                const bpDurationDisplay = document.getElementById('bp_duration_display');
+                if (bpDurationDisplay) {
+                    const bpSinceSpan = bpDurationDisplay.querySelector('[data-bp-since]');
+                    if (bpSinceSpan) {
+                        const bpSinceDate = bpSinceSpan.getAttribute('data-bp-since');
+                        if (bpSinceDate) {
+                            const duration = calculateDuration(bpSinceDate);
+                            bpDurationDisplay.textContent = duration;
+                        }
+                    }
+                }
+
+                // Function to calculate duration from a date
+                function calculateDuration(fromDateStr) {
+                    const today = new Date();
+                    const fromDate = new Date(fromDateStr);
+
+                    // Calculate the difference in years and months
+                    let years = today.getFullYear() - fromDate.getFullYear();
+                    let months = today.getMonth() - fromDate.getMonth();
+
+                    // Adjust if months difference is negative
+                    if (months < 0) {
+                        years--;
+                        months += 12;
+                    }
+
+                    // Build the duration string
+                    let durationText = '';
+                    if (years > 0) {
+                        durationText = `Last ${years} year${years > 1 ? 's' : ''}`;
+                        if (months > 0) {
+                            durationText += ` and ${months} month${months > 1 ? 's' : ''}`;
+                        }
+                    } else if (months > 0) {
+                        durationText = `Last ${months} month${months > 1 ? 's' : ''}`;
+                    } else {
+                        durationText = 'Less than a month';
+                    }
+
+                    return durationText;
+                }
+
+                // Initialize Flatpickr for date filters
+   const appointmentDate  = document.getElementById('appointment_date');
+if (appointmentDate) {
+
+  flatpickr("#appointment_date", {
+    mode: "single",
+    dateFormat: "d-m-Y",
+    allowInput: true,
+
+
+});
+
+
+
+
+}
+
+
+                // Auto-dismiss alert messages after 5 seconds
+                const alerts = document.querySelectorAll('.alert-success, .alert-danger');
+                alerts.forEach(function(alert) {
+                    setTimeout(function() {
+                        const bsAlert = new bootstrap.Alert(alert);
+                        bsAlert.close();
+                    }, 5000); // 5 seconds
+                });
+
+                // AJAX Sorting functionality
+                function setupAjaxSorting() {
+                    const sortableHeaders = document.querySelectorAll('.sortable-header');
+
+                    sortableHeaders.forEach(function(header) {
+                        header.addEventListener('click', function(e) {
+                            e.preventDefault();
+
+                            const column = this.getAttribute('data-sort-column');
+                            const currentUrl = new URL(window.location.href);
+                            const params = new URLSearchParams(currentUrl.search);
+
+                            // Get current sort
+                            const currentSortBy = params.get('sort_by') || 'visit_date_time';
+                            const currentDirection = params.get('sort_direction') || 'desc';
+
+                            // Toggle direction
+                            let newDirection = 'asc';
+                            if (column === currentSortBy || (column === 'date' && (currentSortBy === 'date' || currentSortBy === 'visit_date_time'))) {
+                                newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+                            }
+
+                            // Update params
+                            params.set('sort_by', column);
+                            params.set('sort_direction', newDirection);
+                            params.delete('page'); // Reset to first page
+
+                            // Build URL
+                            const ajaxUrl = '{{ route("doctor.patients.medical-records", $patient->id) }}?' + params.toString();
+
+                            // Show loading state
+                            const container = document.getElementById('appointments-table-container');
+                            container.style.opacity = '0.5';
+                            container.style.pointerEvents = 'none';
+
+                            // Make AJAX request
+                            fetch(ajaxUrl, {
+                                headers: {
+                                    'X-Requested-With': 'XMLHttpRequest'
+                                }
+                            })
+                            .then(response => response.text())
+                            .then(html => {
+                                // Parse the HTML response
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+                                const newContent = doc.getElementById('appointments-table-container');
+
+                                if (newContent) {
+                                    // Replace content
+                                    container.innerHTML = newContent.innerHTML;
+                                    container.style.opacity = '1';
+                                    container.style.pointerEvents = 'auto';
+
+                                    // Update URL without reload
+                                    const newUrl = currentUrl.pathname + '?' + params.toString();
+                                    window.history.pushState({}, '', newUrl);
+
+                                    // Reinitialize sorting on new content
+                                    setupAjaxSorting();
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                container.style.opacity = '1';
+                                container.style.pointerEvents = 'auto';
+                            });
+                        });
+                    });
+                }
+
+                // Initialize AJAX sorting
+                setupAjaxSorting();
+
+                // Scroll to appointments section if coming from filter/search
+                const urlParams = new URLSearchParams(window.location.search);
+const hasFilterParams = urlParams.has('date_range') || urlParams.has('search') || urlParams.has('appointment_type'); // Removed old date params
+
+if (window.location.hash === '#appointments-section' || hasFilterParams) {
+    setTimeout(function() {
+        const element = document.getElementById('appointments-section');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, 100);
+}
+            });
+
+            // Delete appointment confirmation
+            function confirmDeleteAppointment(appointmentId) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This will permanently delete the appointment and all associated medical records. You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Create a form to submit the delete request
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = '{{ route("doctor.patients.appointments.delete", ":id") }}'.replace(':id', appointmentId);
+
+                        // Add CSRF token
+                        const csrfToken = document.createElement('input');
+                        csrfToken.type = 'hidden';
+                        csrfToken.name = '_token';
+                        csrfToken.value = '{{ csrf_token() }}';
+                        form.appendChild(csrfToken);
+
+                        // Add method override
+                        const methodField = document.createElement('input');
+                        methodField.type = 'hidden';
+                        methodField.name = '_method';
+                        methodField.value = 'DELETE';
+                        form.appendChild(methodField);
+
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                });
+            }
+
+            // BMI Interpretation on page load
+            const bmiValueElement = document.getElementById('bmi-value');
+            const bmiValue = bmiValueElement ? parseFloat(bmiValueElement.getAttribute('data-bmi')) : null;
+
+            // Hide all BMI buttons first
+            const bmiButtons = [
+                'bmi-btn-underweight',
+                'bmi-btn-normal',
+                'bmi-btn-overweight',
+                'bmi-btn-obesity1',
+                'bmi-btn-obesity2',
+                'bmi-btn-obesity3'
+            ];
+
+            bmiButtons.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    btn.style.display = 'none';
+                    btn.classList.remove('btn-info', 'btn-success', 'btn-warning', 'btn-danger');
+                    btn.classList.add('btn-outline-secondary');
+                }
+            });
+
+            if (bmiValue && !isNaN(bmiValue)) {
+                // BMI interpretation based on provided ranges
+                let activeButton = null;
+                let buttonClass = '';
+
+                if (bmiValue < 18.5) {
+                    activeButton = document.getElementById('bmi-btn-underweight');
+                    buttonClass = 'btn-info';
+                } else if (bmiValue >= 18.5 && bmiValue <= 22.9) {
+                    activeButton = document.getElementById('bmi-btn-normal');
+                    buttonClass = 'btn-success';
+                } else if (bmiValue >= 23.0 && bmiValue <= 24.9) {
+                    activeButton = document.getElementById('bmi-btn-overweight');
+                    buttonClass = 'btn-warning';
+                } else if (bmiValue >= 25.0 && bmiValue <= 29.9) {
+                    activeButton = document.getElementById('bmi-btn-obesity1');
+                    buttonClass = 'btn-danger';
+                } else if (bmiValue >= 30.0 && bmiValue <= 34.9) {
+                    activeButton = document.getElementById('bmi-btn-obesity2');
+                    buttonClass = 'btn-danger';
+                } else if (bmiValue > 35) {
+                    activeButton = document.getElementById('bmi-btn-obesity3');
+                    buttonClass = 'btn-danger';
+                }
+
+                // Show and style the active button
+                if (activeButton) {
+                    activeButton.style.display = 'inline-block';
+                    activeButton.classList.remove('btn-outline-secondary');
+                    activeButton.classList.add(buttonClass);
+                }
+            }
+            
+        </script>
+    </x-slot>
+    <!--  END CUSTOM SCRIPTS FILE  -->
+</x-base-layout>

@@ -1,0 +1,217 @@
+[12-Nov-2025 08:21:09 UTC] PHP Fatal error:  Uncaught RuntimeException: A facade root has not been set. in /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:335
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/RegisterErrorViewPaths.php(16): Illuminate\Support\Facades\Facade::__callStatic('replaceNamespac...', Array)
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(642): Illuminate\Foundation\Exceptions\RegisterErrorViewPaths->__invoke()
+#2 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(623): Illuminate\Foundation\Exceptions\Handler->registerErrorViewPaths()
+#3 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(554): Illuminate\Foundation\Exceptions\Handler->renderHttpException(Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#4 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(460): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#5 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(377): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\Finder\Exception\DirectoryNotFoundException))
+#6 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(493): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Finder\Exception\DirectoryNotFoundException))
+#7 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(138): Illuminate\Foundation\Http\Kernel->renderException(Object(Illuminate\Http\Request), Object(Symfony\Component\Finder\Exception\DirectoryNotFoundException))
+#8 /home4/wethew2a/sugarsightsaver.in/public/index.php(51): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#9 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 335
+[12-Nov-2025 08:21:13 UTC] PHP Fatal error:  Uncaught RuntimeException: A facade root has not been set. in /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php:335
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/RegisterErrorViewPaths.php(16): Illuminate\Support\Facades\Facade::__callStatic('replaceNamespac...', Array)
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(642): Illuminate\Foundation\Exceptions\RegisterErrorViewPaths->__invoke()
+#2 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(623): Illuminate\Foundation\Exceptions\Handler->registerErrorViewPaths()
+#3 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(554): Illuminate\Foundation\Exceptions\Handler->renderHttpException(Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#4 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(460): Illuminate\Foundation\Exceptions\Handler->prepareResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\HttpKernel\Exception\HttpException))
+#5 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(377): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse(Object(Illuminate\Http\Request), Object(Symfony\Component\Finder\Exception\DirectoryNotFoundException))
+#6 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(493): Illuminate\Foundation\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Finder\Exception\DirectoryNotFoundException))
+#7 /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(138): Illuminate\Foundation\Http\Kernel->renderException(Object(Illuminate\Http\Request), Object(Symfony\Component\Finder\Exception\DirectoryNotFoundException))
+#8 /home4/wethew2a/sugarsightsaver.in/public/index.php(51): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#9 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php on line 335
+[13-Nov-2025 10:00:55 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 10:00:57 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 10:00:59 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 10:01:00 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 10:01:01 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 10:01:02 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:27:27 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:27:52 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:27:55 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:28:04 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:28:04 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:28:06 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:28:08 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:28:09 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:28:12 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:28:23 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:28:28 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[13-Nov-2025 11:28:31 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[18-Nov-2025 16:30:56 UTC] PHP Warning:  require(/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php): Failed to open stream: No such file or directory in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[18-Nov-2025 16:30:56 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[18-Nov-2025 16:31:01 UTC] PHP Warning:  require(/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php): Failed to open stream: No such file or directory in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[18-Nov-2025 16:31:01 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[19-Nov-2025 12:20:34 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[19-Nov-2025 12:20:36 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[19-Nov-2025 12:20:43 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[19-Nov-2025 12:20:47 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[19-Nov-2025 12:20:50 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[19-Nov-2025 12:20:56 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
+[19-Nov-2025 12:20:56 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home4/wethew2a/sugarsightsaver.in/vendor/composer/../../app/helpers.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php(45): {closure}('b4e3f29b106af37...', '/home4/wethew2a...')
+#1 /home4/wethew2a/sugarsightsaver.in/vendor/autoload.php(25): ComposerAutoloaderInitd114b5f2f64352087ffcd20265ef4668::getLoader()
+#2 /home4/wethew2a/sugarsightsaver.in/public/index.php(34): require('/home4/wethew2a...')
+#3 {main}
+  thrown in /home4/wethew2a/sugarsightsaver.in/vendor/composer/autoload_real.php on line 41
