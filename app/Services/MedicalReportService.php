@@ -13,7 +13,7 @@ class MedicalReportService
     /**
      * Generate PDF for medical record
      */
-    public function generatePDF(PatientMedicalRecord $patientMedicalRecord): Response
+    public function generatePDF(PatientMedicalRecord $patientMedicalRecord)
     {
         $patient = $patientMedicalRecord->patient;
         $appointment = $patientMedicalRecord->appointment;
@@ -82,6 +82,110 @@ class MedicalReportService
 
         return $pdf->download($filename);
     }
+
+
+public function generatePDFMsg(PatientMedicalRecord $patientMedicalRecord)
+{
+    $patient = $patientMedicalRecord->patient;
+        $appointment = $patientMedicalRecord->appointment;
+        $doctor = $appointment->doctor;
+
+        // Load relationships
+        $patientMedicalRecord->load(['physicianRecord', 'ophthalmologistRecord']);
+
+        // Get logo as base64 for better PDF compatibility
+        $logoPath = public_path('images/logo.png');
+        $logoBase64 = '';
+        if (file_exists($logoPath)) {
+            $logoData = file_get_contents($logoPath);
+            $logoBase64 = 'data:image/png;base64,' . base64_encode($logoData);
+        } else {
+            // Try alternative path
+            $altLogoPath = resource_path('images/logo.png');
+            if (file_exists($altLogoPath)) {
+                $logoData = file_get_contents($altLogoPath);
+                $logoBase64 = 'data:image/png;base64,' . base64_encode($logoData);
+            }
+        }
+
+        $data = [
+            'patient' => $patient,
+            'appointment' => $appointment,
+            'doctor' => $doctor,
+            'medicalRecord' => $patientMedicalRecord,
+            'physicianRecord' => $patientMedicalRecord->physicianRecord,
+            'ophthalmologistRecord' => $patientMedicalRecord->ophthalmologistRecord,
+            'generated_at' => now()->format('M d, Y H:i:s'),
+            'report_id' => 'MR-' . $patientMedicalRecord->id . '-' . now()->format('Ymd'),
+            'logo_base64' => $logoBase64
+        ];
+
+        $type = $doctor->doctor_type == 'ophthalmologist' ? ' Eye Report' : ' Physician Report';
+
+    // Generate PDF
+    $pdf = Pdf::loadView('reports.medical-report', $data)->setPaper('A4', 'portrait') ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => false,
+                'isPhpEnabled' => false,
+                'defaultFont' => 'Arial',
+                'dpi' => 150,
+                'isFontSubsettingEnabled' => true,
+                'isUnicode' => true,
+                'debugKeepTemp' => false,
+                'debugCss' => false,
+                'debugLayout' => false,
+                'debugLayoutLines' => false,
+                'debugLayoutBlocks' => false,
+                'debugLayoutInline' => false,
+                'debugLayoutPaddingBox' => false,
+                'marginTop' => 3,
+                'marginRight' => 3,
+                'marginBottom' => 3,
+                'marginLeft' => 3,
+            ]);
+
+    // Create filename
+    $filename = $appointment->patient_sssp_id.$type.'_' . $appointment->visit_date_time->format('d-m-Y') . '.pdf';
+    $storagePath = 'reports/' . $filename;
+
+    // Save PDF
+    Storage::disk('public')->put($storagePath, $pdf->output());
+
+    // Public URL
+    $fileUrl = asset('storage/' . $storagePath);
+    
+
+    // WhatsApp Number
+    $mobile = "91" . $patient->mobile_number;
+
+    // MSG91 Template
+    $templateName = "appointment_summary";
+
+    $components = [
+        "header_1" => [
+            "filename" => $filename,
+            "type"     => "document",
+            "value"    => $fileUrl,
+        ],
+        "body_1" => ["type" => "text", "value" => $patient->name],
+        "body_2" => ["type" => "text", "value" => $doctor->name],
+        "body_3" => ["type" => "text", "value" => $doctor->hospital_name],
+        "body_4" => ["type" => "text", "value" => $appointment->visit_date_time->format('d-m-Y H:i A')],
+    ];
+
+
+    // Send WhatsApp
+    sendWhatsapp($mobile, $templateName, $components);
+
+    return response()->json([
+        'status'  => true,
+        'message' => 'Appointment summary has been sent successfully on WhatsApp.',
+        'pdf_url' => $fileUrl
+    ]);
+    
+}
+
+
 
     /**
      * Generate PDF file and save to temporary storage for attachment

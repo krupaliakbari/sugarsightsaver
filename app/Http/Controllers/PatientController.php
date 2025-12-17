@@ -128,6 +128,7 @@ class PatientController extends Controller
      */
     public function storePatient(Request $request)
 {
+    // dd("storePatient called");
     if (!Auth::check() || !Auth::user()->isDoctor()) {
         return redirect('/doctor/login');
     }
@@ -326,6 +327,24 @@ if ($request->filled('date_of_birth')) {
             'created_by_doctor_id' => Auth::id()
         ]);
 
+        $doctor = User::find(Auth::id());
+            // WhatsApp Number
+        $mobile = "91" . $patient->mobile_number;
+
+        // MSG91 Template
+        $templateName = "patient_registration";
+
+        $components = [
+            "body_1" => ["type" => "text", "value" => $patient->name],
+            "body_2" => ["type" => "text", "value" => $doctor->hospital_name],
+            "body_3" => ["type" => "text", "value" => $doctor->name],
+        
+        ];
+
+
+        // Send WhatsApp
+        sendWhatsapp($mobile, $templateName, $components);
+
         // Process "other" values from request
         $typeOtherInput = $request->input('type_of_treatment_other', '');
         $typeOfTreatmentOther = (!empty($typeOtherInput)) ? trim((string)$typeOtherInput) : null;
@@ -453,6 +472,7 @@ if ($request->filled('date_of_birth')) {
     public function storeMedicalEntry(Request $request, $appointmentId)
     {
 
+       
         if (!Auth::check() || !Auth::user()->isDoctor()) {
             return redirect('/doctor/login');
         }
@@ -792,6 +812,7 @@ if (Auth::user()->doctor_type === 'diabetes_treating') {
      */
 public function storeAppointmentExistingStep1(Request $request)
 {
+    
     if (!Auth::check() || !Auth::user()->isDoctor()) {
         return redirect('/doctor/login');
     }
@@ -1058,6 +1079,7 @@ public function storeAppointmentExistingStep1(Request $request)
      */
     public function storeAppointment(Request $request)
     {
+        // dd('storeAppointment called');
         if (!Auth::check() || !Auth::user()->isDoctor()) {
             return redirect('/doctor/login');
         }
@@ -1131,6 +1153,7 @@ public function storeAppointmentExistingStep1(Request $request)
     public function storeAppointmentWithPatientUpdate(Request $request)
     {
 
+        // dd('storeAppointmentWithPatientUpdate called');
         $appointmentId = $request->route('appointment_id');
         if (!Auth::check() || !Auth::user()->isDoctor()) {
             return redirect('/doctor/login');

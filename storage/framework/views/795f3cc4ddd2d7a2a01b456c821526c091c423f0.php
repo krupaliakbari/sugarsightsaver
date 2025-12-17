@@ -1,0 +1,751 @@
+<?php if (isset($component)) { $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a = $component; } ?>
+<?php $component = App\View\Components\BaseLayout::resolve(['scrollspy' => false] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('base-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\BaseLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+
+     <?php $__env->slot('pageTitle', null, []); ?> 
+        Patient Management - Admin
+     <?php $__env->endSlot(); ?>
+
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+     <?php $__env->slot('headerFiles', null, []); ?> 
+        <link rel="stylesheet" href="<?php echo e(asset('plugins/notification/snackbar/snackbar.min.css')); ?>">
+        <link rel="stylesheet" href="<?php echo e(asset('plugins/sweetalerts2/sweetalerts2.css')); ?>">
+        <?php echo app('Illuminate\Foundation\Vite')(['resources/scss/light/assets/components/tabs.scss']); ?>
+        <?php echo app('Illuminate\Foundation\Vite')(['resources/scss/light/assets/elements/alert.scss']); ?>
+        <?php echo app('Illuminate\Foundation\Vite')(['resources/scss/light/plugins/sweetalerts2/custom-sweetalert.scss']); ?>
+        <?php echo app('Illuminate\Foundation\Vite')(['resources/scss/light/plugins/notification/snackbar/custom-snackbar.scss']); ?>
+        <style>
+            .table-responsive {
+                overflow-x: auto;
+            }
+
+            .table td {
+                white-space: nowrap;
+                vertical-align: middle;
+            }
+
+            .table td:first-child {
+                white-space: normal;
+            }
+
+            /* Sortable column headers */
+            .sortable-header {
+                cursor: pointer;
+                user-select: none;
+                position: relative;
+                padding-right: 20px !important;
+            }
+
+            .sortable-header:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+
+            .sort-arrows {
+                display: inline-flex;
+                flex-direction: column;
+                margin-left: 5px;
+                font-size: 10px;
+                line-height: 8px;
+                vertical-align: middle;
+            }
+
+            .sort-arrow {
+                color: #ccc;
+                transition: color 0.2s;
+            }
+
+            .sort-arrow.active {
+                color: #4361ee;
+            }
+
+            /* Filter section */
+            .filter-section {
+                background: #f8f9fa;
+                border-radius: 8px;
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .filter-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                align-items: end;
+            }
+
+            .filter-group {
+                flex: 1;
+                min-width: 200px;
+            }
+
+            .filter-buttons {
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            .btn-filter {
+                white-space: nowrap;
+                min-width: 80px;
+                font-size: 1rem;
+                padding: 0.75rem 1rem;
+                height: 48px;
+            }
+
+            .btn-clear {
+                white-space: nowrap;
+                min-width: 70px;
+                font-size: 1rem;
+                padding: 0.75rem 1rem;
+                height: 48px;
+            }
+
+            /* Button text protection */
+            .btn {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .btn-sm {
+                font-size: 0.8rem;
+                padding: 0.375rem 0.75rem;
+            }
+
+            /* Table responsive improvements */
+            @media (max-width: 1200px) {
+
+                .table th,
+                .table td {
+                    padding: 0.5rem;
+                    font-size: 0.875rem;
+                }
+
+                .btn-sm {
+                    padding: 0.25rem 0.5rem;
+                    font-size: 0.75rem;
+                }
+            }
+
+            @media (max-width: 992px) {
+                .filter-row {
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+
+                .filter-group {
+                    min-width: 100%;
+                }
+
+                .filter-buttons {
+                    justify-content: center;
+                }
+
+                .table th,
+                .table td {
+                    padding: 0.375rem;
+                    font-size: 0.8rem;
+                }
+
+                .btn-sm {
+                    padding: 0.2rem 0.4rem;
+                    font-size: 0.7rem;
+                }
+
+                .d-flex.gap-1 {
+                    /* flex-direction: column; */
+                    gap: 0.25rem !important;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .filter-section {
+                    padding: 1rem;
+                }
+
+                .table-responsive {
+                    font-size: 0.8rem;
+                }
+
+                .btn-sm {
+                    padding: 0.15rem 0.3rem;
+                    font-size: 0.65rem;
+                }
+
+                .badge {
+                    font-size: 0.65rem;
+                }
+            }
+
+            /* Action buttons responsive */
+            .action-buttons {
+                display: flex;
+                gap: 0.25rem;
+                flex-wrap: wrap;
+            }
+
+            @media (max-width: 576px) {
+                .action-buttons {
+                    flex-direction: column;
+                }
+
+                .btn-sm {
+                    width: 100%;
+                    margin-bottom: 0.25rem;
+                }
+            }
+
+            /* Dropdown improvements */
+            .dropdown-menu {
+                min-width: 120px;
+            }
+
+            .dropdown-item {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+
+            /* Status toggle improvements */
+            .form-check-label {
+                font-size: 0.8rem;
+                margin-left: 0.5rem;
+            }
+
+            @media (max-width: 768px) {
+                .form-check-label {
+                    font-size: 0.7rem;
+                    margin-left: 0.25rem;
+                }
+            }
+
+            /* Pagination styling */
+            .pagination {
+                margin-bottom: 0;
+            }
+
+            .pagination .page-link {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                color: #4361ee;
+                background-color: #fff;
+                border: 1px solid #dee2e6;
+            }
+
+            .pagination .page-link:hover {
+                color: #2c3fb1;
+                background-color: #e9ecef;
+                border-color: #dee2e6;
+            }
+
+            .pagination .page-item.active .page-link {
+                z-index: 3;
+                color: #fff;
+                background-color: #4361ee;
+                border-color: #4361ee;
+            }
+
+            .pagination .page-item.disabled .page-link {
+                color: #6c757d;
+                pointer-events: none;
+                cursor: auto;
+                background-color: #fff;
+                border-color: #dee2e6;
+            }
+        </style>
+     <?php $__env->endSlot(); ?>
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <div class="container-fluid" style="padding-left: 0; padding-right: 0;">
+        <!-- Start Row -->
+        <div class="row mt-3" style="margin-left: 0; margin-right: 0;">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="padding-left: 0; padding-right: 0;">
+                <div class="widget-content widget-content-area br-8">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="mb-0">Patient Management</h4>
+                                <div class="d-flex flex-wrap gap-2">
+                                   
+                                    <?php if(request()->hasAny(['search', 'doctor_id', 'sex', 'age','sort_by','sort_direction'])): ?>
+                                     
+                                        <a href="<?php echo e(route('admin.patients.export.filtered')); ?><?php echo e(request()->getQueryString() ? '?' . request()->getQueryString() : ''); ?>"
+                                            class="btn btn-success">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-download me-1">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                                <polyline points="7,10 12,15 17,10"></polyline>
+                                                <line x1="12" y1="15" x2="12" y2="3">
+                                                </line>
+                                            </svg>
+                                            Export Patients
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="<?php echo e(route('admin.patients.export')); ?>" class="btn btn-success">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-download me-1">
+                                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                                <polyline points="7,10 12,15 17,10"></polyline>
+                                                <line x1="12" y1="15" x2="12" y2="3">
+                                                </line>
+                                            </svg>
+                                            Export Patients
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+
+                            <!-- Filter Form -->
+                            <div class="filter-section">
+                                <form method="GET" action="<?php echo e(route('admin.patients.index')); ?>">
+                                    <div class="filter-row">
+                                        <div class="filter-group">
+                                            <label class="form-label small text-muted mb-1">Search</label>
+                                            <input type="text" class="form-control" name="search"
+                                                placeholder="Search by name, mobile, email, SSSP ID..."
+                                                value="<?php echo e(request('search')); ?>">
+                                        </div>
+                                        <div class="filter-group">
+                                            <label class="form-label small text-muted mb-1">Doctor</label>
+                                            <select class="form-select" name="doctor_id">
+                                                <option value="">All Doctors</option>
+                                                <?php $__currentLoopData = $doctors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $doctor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($doctor->id); ?>"
+                                                        <?php echo e(request('doctor_id') == $doctor->id ? 'selected' : ''); ?>>
+                                                        <?php echo e($doctor->name); ?>
+
+                                                    </option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+                                        </div>
+                                        <div class="filter-group">
+                                            <label class="form-label small text-muted mb-1">Gender</label>
+                                            <select class="form-select" name="sex">
+                                                <option value="">All Genders</option>
+                                                <option value="male"
+                                                    <?php echo e(request('sex') == 'male' ? 'selected' : ''); ?>>Male</option>
+                                                <option value="female"
+                                                    <?php echo e(request('sex') == 'female' ? 'selected' : ''); ?>>Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="filter-group">
+                                            <label class="form-label small text-muted mb-1">Age</label>
+                                            <input type="number" class="form-control" name="age" placeholder="Age"
+                                                value="<?php echo e(request('age')); ?>">
+                                        </div>
+                                        <div class="filter-buttons">
+                                            <button type="submit" class="btn btn-primary btn-filter">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-search me-1">
+                                                    <circle cx="11" cy="11" r="8"></circle>
+                                                    <path d="M21 21l-4.35-4.35"></path>
+                                                </svg>
+                                                Search
+                                            </button>
+                                            <?php if(request()->hasAny(['search', 'doctor_id', 'sex', 'age'])): ?>
+                                                <a href="<?php echo e(route('admin.patients.index')); ?>"
+                                                    class="btn btn-outline-secondary btn-clear">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="feather feather-x me-1">
+                                                        <line x1="18" y1="6" x2="6"
+                                                            y2="18"></line>
+                                                        <line x1="6" y1="6" x2="18"
+                                                            y2="18"></line>
+                                                    </svg>
+                                                    Clear
+                                                </a>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div id="patients-table-container">
+                                <?php if(session()->has('error')): ?>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                        <?php echo e(session()->get('error')); ?>
+
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if(session()->has('success')): ?>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                        <?php echo e(session()->get('success')); ?>
+
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if($patients->count() > 0): ?>
+                                    <?php
+                                        $sortBy = request('sort_by', 'created_at');
+                                        $sortDirection = request('sort_direction', 'desc');
+
+                                        function getSortUrl($column, $currentSortBy, $currentDirection)
+                                        {
+                                            $direction = 'asc';
+                                            if ($column === $currentSortBy) {
+                                                $direction = $currentDirection === 'asc' ? 'desc' : 'asc';
+                                            }
+
+                                            $params = array_merge(request()->all(), [
+                                                'sort_by' => $column,
+                                                'sort_direction' => $direction,
+                                            ]);
+                                            unset($params['page']);
+
+                                            return request()->url() . '?' . http_build_query($params);
+                                        }
+                                    ?>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="sortable-header" data-sort-column="name">
+                                                        Patient
+                                                        <span class="sort-arrows">
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'name' && $sortDirection === 'asc' ? 'active' : ''); ?>">▲</span>
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'name' && $sortDirection === 'desc' ? 'active' : ''); ?>">▼</span>
+                                                        </span>
+                                                    </th>
+                                                    <th class="sortable-header" data-sort-column="mobile_number">
+                                                        Contact
+                                                        <span class="sort-arrows">
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'mobile_number' && $sortDirection === 'asc' ? 'active' : ''); ?>">▲</span>
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'mobile_number' && $sortDirection === 'desc' ? 'active' : ''); ?>">▼</span>
+                                                        </span>
+                                                    </th>
+                                                    <th class="sortable-header" data-sort-column="sssp_id">
+                                                        SSSP ID
+                                                        <span class="sort-arrows">
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'sssp_id' && $sortDirection === 'asc' ? 'active' : ''); ?>">▲</span>
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'sssp_id' && $sortDirection === 'desc' ? 'active' : ''); ?>">▼</span>
+                                                        </span>
+                                                    </th>
+                                                    <th>Hospital & Doctor</th>
+                                                    <th class="sortable-header" data-sort-column="age">
+                                                        Age & Gender
+                                                        <span class="sort-arrows">
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'age' && $sortDirection === 'asc' ? 'active' : ''); ?>">▲</span>
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'age' && $sortDirection === 'desc' ? 'active' : ''); ?>">▼</span>
+                                                        </span>
+                                                    </th>
+                                                    <th class="sortable-header" data-sort-column="last_visit">
+                                                        Last Visit
+                                                        <span class="sort-arrows">
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'last_visit' && $sortDirection === 'asc' ? 'active' : ''); ?>">▲</span>
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'last_visit' && $sortDirection === 'desc' ? 'active' : ''); ?>">▼</span>
+                                                        </span>
+                                                    </th>
+                                                    <th class="sortable-header" data-sort-column="total_appointments">
+                                                        Total Appointments
+                                                        <span class="sort-arrows">
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'total_appointments' && $sortDirection === 'asc' ? 'active' : ''); ?>">▲</span>
+                                                            <span
+                                                                class="sort-arrow <?php echo e($sortBy === 'total_appointments' && $sortDirection === 'desc' ? 'active' : ''); ?>">▼</span>
+                                                        </span>
+                                                    </th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $__currentLoopData = $patients; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $patient): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <tr>
+                                                        <td>
+                                                            <div>
+                                                                <h6 class="mb-0"><?php echo e($patient->name); ?></h6>
+                                                                <small
+                                                                    class="text-muted"><?php echo e($patient->email ?? 'No email'); ?></small>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                <p class="mb-0"><?php echo e($patient->mobile_number); ?></p>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <?php if($patient->sssp_id): ?>
+                                                                <span
+                                                                    class="badge bg-info"><?php echo e($patient->sssp_id); ?></span>
+                                                            <?php else: ?>
+                                                                <span class="text-muted">N/A</span>
+                                                            <?php endif; ?>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                <p class="mb-0 text-truncate"
+                                                                    style="max-width: 200px;"
+                                                                    title="<?php echo e($patient->createdByDoctor->hospital_name ?? 'Not specified'); ?>">
+                                                                    <?php echo e($patient->createdByDoctor->hospital_name ?? 'Not specified'); ?>
+
+                                                                </p>
+                                                                <small
+                                                                    class="text-muted"><?php echo e($patient->createdByDoctor->name ?? 'Unknown Doctor'); ?></small>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                <span class="text-primary"><?php echo e($patient->age); ?>
+
+                                                                    years</span>
+                                                                <br>
+                                                                <small
+                                                                    class="text-muted"><?php echo e(ucfirst($patient->sex)); ?></small>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <?php if($patient->appointments->count() > 0): ?>
+                                                                <span
+                                                                    class="text-success"><?php echo e($patient->appointments->sortByDesc('visit_date_time')->first()->visit_date_time->format('M d, Y')); ?></span>
+                                                            <?php else: ?>
+                                                                <span class="text-muted">No visits</span>
+                                                            <?php endif; ?>
+                                                        </td>
+                                                        <td>
+                                                            <span
+                                                                class="badge bg-primary"><?php echo e($patient->appointments->count()); ?></span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex gap-1">
+                                                                <a href="<?php echo e(route('admin.patients.show', $patient->id)); ?>"
+                                                                    class="btn btn-sm btn-info" title="View Details"
+                                                                    style="padding: 0.375rem 0.5rem;">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="16" height="16"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="white" stroke-width="2"
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round">
+                                                                        <path
+                                                                            d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z">
+                                                                        </path>
+                                                                        <circle cx="12" cy="12" r="3">
+                                                                        </circle>
+                                                                    </svg>
+                                                                </a>
+
+
+
+                                                                <button type="button" class="btn btn-sm btn-danger"
+                                                                    style="padding: 0.375rem 0.5rem;"
+                                                                    title="Delete Patient"
+                                                                    onclick="confirmDeletePatient(<?php echo e($patient->id); ?>)">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="16" height="16"
+                                                                        viewBox="0 0 24 24" fill="none"
+                                                                        stroke="white" stroke-width="2"
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round">
+                                                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                                                        <path
+                                                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                                                        </path>
+                                                                        <line x1="10" y1="11"
+                                                                            x2="10" y2="17"></line>
+                                                                        <line x1="14" y1="11"
+                                                                            x2="14" y2="17"></line>
+                                                                    </svg>
+                                                                </button>
+
+
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- Pagination -->
+                                    <?php if($patients->hasPages()): ?>
+                                        <div class="d-flex justify-content-between align-items-center mt-4">
+                                            <div class="text-muted">
+                                                Showing <?php echo e($patients->firstItem()); ?> to <?php echo e($patients->lastItem()); ?> of
+                                                <?php echo e($patients->total()); ?> patients
+                                            </div>
+                                            <div>
+                                                <?php echo e($patients->links('pagination::bootstrap-4')); ?>
+
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <div class="text-center py-4">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <h5 class="text-muted">No patients found</h5>
+                                            <p class="text-muted">No patients match your current filters.</p>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+     <?php $__env->slot('footerFiles', null, []); ?> 
+        <script src="<?php echo e(asset('plugins/notification/snackbar/snackbar.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('plugins/sweetalerts2/sweetalerts2.min.js')); ?>"></script>
+
+        <script>
+            $(document).ready(function() {
+                // Auto-dismiss alert messages after 5 seconds
+                const alerts = document.querySelectorAll('.alert-success, .alert-danger');
+                alerts.forEach(function(alert) {
+                    setTimeout(function() {
+                        $(alert).fadeOut('slow', function() {
+                            $(this).remove();
+                        });
+                    }, 5000);
+                });
+
+                // AJAX Sorting functionality
+                function setupAjaxSorting() {
+                    const sortableHeaders = document.querySelectorAll('.sortable-header');
+
+                    sortableHeaders.forEach(function(header) {
+                        header.addEventListener('click', function(e) {
+                            e.preventDefault();
+
+                            const column = this.getAttribute('data-sort-column');
+                            const currentUrl = new URL(window.location.href);
+                            const params = new URLSearchParams(currentUrl.search);
+
+                            const currentSortBy = params.get('sort_by') || 'created_at';
+                            const currentDirection = params.get('sort_direction') || 'desc';
+
+                            let newDirection = 'asc';
+                            if (column === currentSortBy) {
+                                newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+                            }
+
+                            params.set('sort_by', column);
+                            params.set('sort_direction', newDirection);
+                            params.delete('page');
+
+                            const ajaxUrl = '<?php echo e(route('admin.patients.index')); ?>?' + params.toString();
+
+                            const container = document.getElementById('patients-table-container');
+                            container.style.opacity = '0.5';
+                            container.style.pointerEvents = 'none';
+
+                            fetch(ajaxUrl, {
+                                    headers: {
+                                        'X-Requested-With': 'XMLHttpRequest'
+                                    }
+                                })
+                                .then(response => response.text())
+                                .then(html => {
+                                    const parser = new DOMParser();
+                                    const doc = parser.parseFromString(html, 'text/html');
+                                    const newContent = doc.getElementById(
+                                        'patients-table-container');
+
+                                    if (newContent) {
+                                        container.innerHTML = newContent.innerHTML;
+                                        container.style.opacity = '1';
+                                        container.style.pointerEvents = 'auto';
+
+                                        const newUrl = currentUrl.pathname + '?' + params
+                                    .toString();
+                                        window.history.pushState({}, '', newUrl);
+
+                                        setupAjaxSorting();
+                                    }
+                                    window.location.reload();
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    container.style.opacity = '1';
+                                    container.style.pointerEvents = 'auto';
+                                });
+                        });
+                    });
+                }
+
+                setupAjaxSorting();
+            });
+
+
+
+            function confirmDeletePatient(id) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This will permanently delete the patient and ALL their medical records, appointments, and reports!",
+                    icon: 'warning',
+                    showCancelButton: true,
+
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Create form dynamically
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+
+                        // This is the key fix: correctly generate URL with ID
+                        form.action = '<?php echo e(route('admin.patients.delete', ':id')); ?>'.replace(':id', id);
+
+                        form.style.display = 'none';
+
+                        // CSRF Token
+                        const token = document.createElement('input');
+                        token.type = 'hidden';
+                        token.name = '_token';
+                        token.value = '<?php echo e(csrf_token()); ?>';
+                        form.appendChild(token);
+
+                        // Method Spoofing (Laravel expects DELETE)
+                        const method = document.createElement('input');
+                        method.type = 'hidden';
+                        method.name = '_method';
+                        method.value = 'DELETE';
+                        form.appendChild(method);
+
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                });
+            }
+        </script>
+     <?php $__env->endSlot(); ?>
+    <!--  END CUSTOM SCRIPTS FILE  -->
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a)): ?>
+<?php $component = $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a; ?>
+<?php unset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a); ?>
+<?php endif; ?>
+<?php /**PATH C:\Users\ANZO-KRUPALI\Desktop\sugarsightsaver1\resources\views/pages/admin/patients/index.blade.php ENDPATH**/ ?>

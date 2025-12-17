@@ -291,6 +291,9 @@ Route::prefix('doctor')->group(function () {
             Route::get('/summary/{patientMedicalRecordId}/print', [MedicalSummaryController::class, 'print'])->name('doctor.medical.summary.print');
             Route::get('/summary/{patientMedicalRecordId}/pdf', [MedicalSummaryController::class, 'generatePdf'])->name('doctor.medical.summary.pdf');
             Route::post('/summary/{patientMedicalRecordId}/whatsapp', [MedicalSummaryController::class, 'sendWhatsApp'])->name('doctor.medical.summary.whatsapp');
+            Route::post('/summary/{patientMedicalRecordId}/whatsapp/msg', [MedicalSummaryController::class, 'sendWhatsAppMsg'])->name('doctor.medical.summary.whatsappMsg');
+          
+
             Route::get('/test-logo', [MedicalSummaryController::class, 'testLogo'])->name('doctor.medical.test-logo');
 
             // Excel Export Routes

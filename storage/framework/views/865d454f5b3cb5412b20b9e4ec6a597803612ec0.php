@@ -1,18 +1,27 @@
-<x-base-layout :scrollspy="false">
+<?php if (isset($component)) { $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a = $component; } ?>
+<?php $component = App\View\Components\BaseLayout::resolve(['scrollspy' => false] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('base-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\BaseLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
 
-    <x-slot:pageTitle>
-        {{ $title }}
-    </x-slot>
+     <?php $__env->slot('pageTitle', null, []); ?> 
+        <?php echo e($title); ?>
+
+     <?php $__env->endSlot(); ?>
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <x-slot:headerFiles>
-        <link rel="stylesheet" href="{{ asset('plugins/notification/snackbar/snackbar.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('plugins/sweetalerts2/sweetalerts2.css') }}">
+     <?php $__env->slot('headerFiles', null, []); ?> 
+        <link rel="stylesheet" href="<?php echo e(asset('plugins/notification/snackbar/snackbar.min.css')); ?>">
+        <link rel="stylesheet" href="<?php echo e(asset('plugins/sweetalerts2/sweetalerts2.css')); ?>">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        @vite(['resources/scss/light/assets/components/tabs.scss'])
-        @vite(['resources/scss/light/assets/elements/alert.scss'])
-        @vite(['resources/scss/light/plugins/sweetalerts2/custom-sweetalert.scss'])
-        @vite(['resources/scss/light/plugins/notification/snackbar/custom-snackbar.scss'])
+        <?php echo app('Illuminate\Foundation\Vite')(['resources/scss/light/assets/components/tabs.scss']); ?>
+        <?php echo app('Illuminate\Foundation\Vite')(['resources/scss/light/assets/elements/alert.scss']); ?>
+        <?php echo app('Illuminate\Foundation\Vite')(['resources/scss/light/plugins/sweetalerts2/custom-sweetalert.scss']); ?>
+        <?php echo app('Illuminate\Foundation\Vite')(['resources/scss/light/plugins/notification/snackbar/custom-snackbar.scss']); ?>
 
         <style>
             /* Compact card headers */
@@ -42,7 +51,7 @@
                 }
             }
         </style>
-    </x-slot>
+     <?php $__env->endSlot(); ?>
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <div class="row mt-3">
@@ -52,13 +61,13 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                         <h4 class="mb-4">Appointment Summary</h4>
 
-                        @if (session()->has('error'))
-                            <div class="alert alert-danger">{{ session()->get('error') }}</div>
-                        @endif
+                        <?php if(session()->has('error')): ?>
+                            <div class="alert alert-danger"><?php echo e(session()->get('error')); ?></div>
+                        <?php endif; ?>
 
-                        @if (session()->has('success'))
-                            <div class="alert alert-success">{{ session()->get('success') }}</div>
-                        @endif
+                        <?php if(session()->has('success')): ?>
+                            <div class="alert alert-success"><?php echo e(session()->get('success')); ?></div>
+                        <?php endif; ?>
 
                         <!-- Patient Information Card -->
                         <div class="card mb-4">
@@ -71,12 +80,12 @@
                                     <div class="col-md-6">
                                         <strong>Appointment Date</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->appointment->visit_date_time->format('M d, Y H:i') }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->appointment->visit_date_time->format('M d, Y H:i')); ?></span>
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Appointment Type</strong><br>
                                         <span
-                                            class="badge bg-info">{{ ucfirst($patientMedicalRecord->appointment->appointment_type) }}</span>
+                                            class="badge bg-info"><?php echo e(ucfirst($patientMedicalRecord->appointment->appointment_type)); ?></span>
                                     </div>
                                 </div>
 
@@ -87,26 +96,27 @@
                                         <div class="d-flex align-items-center">
                                             <div
                                                 class="avatar avatar-sm bg-primary text-white rounded-circle me-2 d-flex align-items-center justify-content-center">
-                                                {{ substr($patientMedicalRecord->appointment->patient_name_snapshot, 0, 1) }}
+                                                <?php echo e(substr($patientMedicalRecord->appointment->patient_name_snapshot, 0, 1)); ?>
+
                                             </div>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->appointment->patient_name_snapshot }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_name_snapshot); ?></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Mobile</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->appointment->patient_mobile_number_snapshot }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_mobile_number_snapshot); ?></span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>SSSP ID</strong><br>
                                         <span
-                                            class="badge bg-info">{{ $patientMedicalRecord->appointment->patient_sssp_id_snapshot }}</span>
+                                            class="badge bg-info"><?php echo e($patientMedicalRecord->appointment->patient_sssp_id_snapshot); ?></span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Email</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->appointment->patient_email_snapshot ?? 'N/A' }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_email_snapshot ?? 'N/A'); ?></span>
                                     </div>
                                 </div>
 
@@ -115,13 +125,13 @@
                                     <div class="col-md-3">
                                         <strong>Diabetes From</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->appointment->patient_diabetes_from_snapshot ? $patientMedicalRecord->appointment->patient_diabetes_from_snapshot->format('M Y') : 'N/A' }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_diabetes_from_snapshot ? $patientMedicalRecord->appointment->patient_diabetes_from_snapshot->format('M Y') : 'N/A'); ?></span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Diabetes Since</strong><br>
                                         <span class="text-muted">
-                                            @if ($patientMedicalRecord->appointment->patient_diabetes_from_snapshot)
-                                                @php
+                                            <?php if($patientMedicalRecord->appointment->patient_diabetes_from_snapshot): ?>
+                                                <?php
                                                     $today = now();
                                                     $diabetesFrom =
                                                         $patientMedicalRecord->appointment
@@ -140,22 +150,24 @@
                                                     } else {
                                                         $duration = 'Less than a month';
                                                     }
-                                                @endphp
-                                                {{ $duration }}
-                                            @else
+                                                ?>
+                                                <?php echo e($duration); ?>
+
+                                            <?php else: ?>
                                                 N/A
-                                            @endif
+                                            <?php endif; ?>
                                         </span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Date of Birth</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->appointment->patient_date_of_birth_snapshot ? $patientMedicalRecord->appointment->patient_date_of_birth_snapshot->format('M d, Y') : 'N/A' }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_date_of_birth_snapshot ? $patientMedicalRecord->appointment->patient_date_of_birth_snapshot->format('M d, Y') : 'N/A'); ?></span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Age</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->appointment->patient_age_snapshot }}
+                                            class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_age_snapshot); ?>
+
                                             years</span>
                                     </div>
                                 </div>
@@ -165,17 +177,17 @@
                                     <div class="col-md-3">
                                         <strong>Sex</strong><br>
                                         <span
-                                            class="badge bg-secondary">{{ ucfirst($patientMedicalRecord->appointment->patient_sex_snapshot) }}</span>
+                                            class="badge bg-secondary"><?php echo e(ucfirst($patientMedicalRecord->appointment->patient_sex_snapshot)); ?></span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Hospital ID</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->appointment->patient_hospital_id_snapshot ?? 'N/A' }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_hospital_id_snapshot ?? 'N/A'); ?></span>
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Short Address</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->appointment->patient_short_address_snapshot }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_short_address_snapshot); ?></span>
                                     </div>
                                 </div>
 
@@ -187,7 +199,7 @@
                                     </div>
                                 </div>
 
-                                @php
+                                <?php
                                     // This is for "Type Of Treatment" - use current appointment snapshot only
                                     $showTypeOfTreatmentOther = false;
                                     $typeOfTreatmentOtherValue = '';
@@ -212,41 +224,44 @@ if (
                                             }
                                         }
                                     }
-                                @endphp
+                                ?>
 
                                 <!-- Treatment Information Row -->
                                 <div class="row mb-3">
                                     <div class="col-md-3">
                                         <strong>On Treatment</strong><br>
-                                        <span class="badge {{ $isOnTreatment ? 'bg-success' : 'bg-danger' }}">
-                                            {{ $isOnTreatment ? 'Yes' : 'No' }}
+                                        <span class="badge <?php echo e($isOnTreatment ? 'bg-success' : 'bg-danger'); ?>">
+                                            <?php echo e($isOnTreatment ? 'Yes' : 'No'); ?>
+
                                         </span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Type of Treatment</strong><br>
                                         <span class="text-muted">
-                                            @if ($isOnTreatment)
-                                                @if (
+                                            <?php if($isOnTreatment): ?>
+                                                <?php if(
                                                     $patientMedicalRecord->appointment->patient_type_of_treatment_snapshot &&
-                                                        count($patientMedicalRecord->appointment->patient_type_of_treatment_snapshot) > 0)
-                                                    {{ implode(', ', array_map('ucfirst', str_replace('_', ' ', $patientMedicalRecord->appointment->patient_type_of_treatment_snapshot))) }}
-                                                @else
+                                                        count($patientMedicalRecord->appointment->patient_type_of_treatment_snapshot) > 0): ?>
+                                                    <?php echo e(implode(', ', array_map('ucfirst', str_replace('_', ' ', $patientMedicalRecord->appointment->patient_type_of_treatment_snapshot)))); ?>
+
+                                                <?php else: ?>
                                                     Not specified
-                                                @endif
-                                            @else
+                                                <?php endif; ?>
+                                            <?php else: ?>
                                                 Not specified
-                                            @endif
+                                            <?php endif; ?>
                                         </span>
                                     </div>
-                                    @if ($showTypeOfTreatmentOther)
+                                    <?php if($showTypeOfTreatmentOther): ?>
                                         <div class="col-md-3">
                                             <strong>Specify Other Treatment</strong><br>
                                             <span class="text-muted">
-                                                @if ($typeOfTreatmentOtherValue !== '' && is_string($typeOfTreatmentOtherValue))
-                                                    {{ $typeOfTreatmentOtherValue }}
-                                                @else
+                                                <?php if($typeOfTreatmentOtherValue !== '' && is_string($typeOfTreatmentOtherValue)): ?>
+                                                    <?php echo e($typeOfTreatmentOtherValue); ?>
+
+                                                <?php else: ?>
                                                     Not specified
-                                                @endif
+                                                <?php endif; ?>
                                             </span>
                                         </div>
 
@@ -257,28 +272,29 @@ if (
                                 <div class="row mb-3">
                                     
 
-                                    @if (
+                                    <?php if(
                                         $patientMedicalRecord->appointment->patient_bp_snapshot &&
-                                            $patientMedicalRecord->appointment->patient_bp_since_snapshot)
+                                            $patientMedicalRecord->appointment->patient_bp_since_snapshot): ?>
 
                                             <div class="col-md-3">
                                         <strong>BP</strong><br>
                                         <span
-                                            class="badge {{ $patientMedicalRecord->appointment->patient_bp_snapshot ? 'bg-success' : 'bg-danger' }}">
-                                            {{ $patientMedicalRecord->appointment->patient_bp_snapshot ? 'Yes' : 'No' }}
+                                            class="badge <?php echo e($patientMedicalRecord->appointment->patient_bp_snapshot ? 'bg-success' : 'bg-danger'); ?>">
+                                            <?php echo e($patientMedicalRecord->appointment->patient_bp_snapshot ? 'Yes' : 'No'); ?>
+
                                         </span>
                                     </div>
-                                    @if ($patientMedicalRecord->appointment->patient_bp_snapshot)
+                                    <?php if($patientMedicalRecord->appointment->patient_bp_snapshot): ?>
                                         <div class="col-md-3">
                                             <strong>BP Since</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->appointment->patient_bp_since_snapshot ? $patientMedicalRecord->appointment->patient_bp_since_snapshot->format('M Y') : 'N/A' }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_bp_since_snapshot ? $patientMedicalRecord->appointment->patient_bp_since_snapshot->format('M Y') : 'N/A'); ?></span>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                         <div class="col-md-3">
                                             <strong>BP Duration</strong><br>
                                             <span class="text-muted">
-                                                @php
+                                                <?php
                                                     $today = now();
                                                     $bpSince =
                                                         $patientMedicalRecord->appointment->patient_bp_since_snapshot;
@@ -296,35 +312,37 @@ if (
                                                     } else {
                                                         $duration = 'Less than a month';
                                                     }
-                                                @endphp
-                                                {{ $duration }}
+                                                ?>
+                                                <?php echo e($duration); ?>
+
                                             </span>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
-                            @elseif(
+                            <?php elseif(
                                 $patientMedicalRecord->appointment->patient_bp_snapshot &&
-                                    $patientMedicalRecord->appointment->patient_bp_since_snapshot)
+                                    $patientMedicalRecord->appointment->patient_bp_since_snapshot): ?>
                                 <!-- BP Duration Row (when no other treatment) -->
                                 <div class="row mb-3 mt-3">
                                     <div class="col-md-3">
                                         <strong>BP</strong><br>
                                         <span
-                                            class="badge {{ $patientMedicalRecord->appointment->patient_bp_snapshot ? 'bg-success' : 'bg-danger' }}">
-                                            {{ $patientMedicalRecord->appointment->patient_bp_snapshot ? 'Yes' : 'No' }}
+                                            class="badge <?php echo e($patientMedicalRecord->appointment->patient_bp_snapshot ? 'bg-success' : 'bg-danger'); ?>">
+                                            <?php echo e($patientMedicalRecord->appointment->patient_bp_snapshot ? 'Yes' : 'No'); ?>
+
                                         </span>
                                     </div>
-                                    @if ($patientMedicalRecord->appointment->patient_bp_snapshot)
+                                    <?php if($patientMedicalRecord->appointment->patient_bp_snapshot): ?>
                                         <div class="col-md-3">
                                             <strong>BP Since</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->appointment->patient_bp_since_snapshot ? $patientMedicalRecord->appointment->patient_bp_since_snapshot->format('M Y') : 'N/A' }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_bp_since_snapshot ? $patientMedicalRecord->appointment->patient_bp_since_snapshot->format('M Y') : 'N/A'); ?></span>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                     <div class="col-md-3">
                                         <strong>BP Duration</strong><br>
                                         <span class="text-muted">
-                                            @php
+                                            <?php
                                                 $today = now();
                                                 $bpSince =
                                                     $patientMedicalRecord->appointment->patient_bp_since_snapshot;
@@ -341,12 +359,13 @@ if (
                                                 } else {
                                                     $duration = 'Less than a month';
                                                 }
-                                            @endphp
-                                            {{ $duration }}
+                                            ?>
+                                            <?php echo e($duration); ?>
+
                                         </span>
                                     </div>
                                 </div>
-                                @endif
+                                <?php endif; ?>
 
                                 <!-- Other Diseases Section -->
                                 <div class="row mt-4">
@@ -360,16 +379,17 @@ if (
                                     <div class="col-md-3">
                                         <strong>Any Other Diseases</strong><br>
                                         <span class="text-muted">
-                                            @if (
+                                            <?php if(
                                                 $patientMedicalRecord->appointment->patient_other_diseases_snapshot &&
-                                                    count($patientMedicalRecord->appointment->patient_other_diseases_snapshot) > 0)
-                                                {{ implode(', ', array_map('ucfirst', str_replace('_', ' ', $patientMedicalRecord->appointment->patient_other_diseases_snapshot))) }}
-                                            @else
+                                                    count($patientMedicalRecord->appointment->patient_other_diseases_snapshot) > 0): ?>
+                                                <?php echo e(implode(', ', array_map('ucfirst', str_replace('_', ' ', $patientMedicalRecord->appointment->patient_other_diseases_snapshot)))); ?>
+
+                                            <?php else: ?>
                                                 None
-                                            @endif
+                                            <?php endif; ?>
                                         </span>
                                     </div>
-                                    @php
+                                    <?php
                                         // Use appointment snapshot only (not patient master record)
                                         // Only show if "others" is in the diseases array AND there's a value
 $appointment = $patientMedicalRecord->appointment ?? null;
@@ -388,23 +408,24 @@ if (
                                                 }
                                             }
                                         }
-                                    @endphp
-                                    @if ($showOtherDisease)
+                                    ?>
+                                    <?php if($showOtherDisease): ?>
                                         <div class="col-md-3">
                                             <strong>Specify Other Disease</strong><br>
                                             <span class="text-muted">
-                                                @if (!empty($otherDisease) && is_string($otherDisease))
-                                                    {{ trim($otherDisease) }}
-                                                @else
+                                                <?php if(!empty($otherDisease) && is_string($otherDisease)): ?>
+                                                    <?php echo e(trim($otherDisease)); ?>
+
+                                                <?php else: ?>
                                                     N/A
-                                                @endif
+                                                <?php endif; ?>
                                             </span>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                     <div class="col-md-3">
                                         <strong>Any Other Input</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->appointment->patient_other_input_snapshot ?? 'N/A' }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_other_input_snapshot ?? 'N/A'); ?></span>
                                     </div>
                                 </div>
 
@@ -421,23 +442,25 @@ if (
                                     <div class="col-md-3">
                                         <strong>Height</strong><br>
                                         <span class="text-muted">
-                                            @if ($patientMedicalRecord->appointment->patient_height)
-                                                {{ $patientMedicalRecord->appointment->patient_height }}
-                                                {{ $patientMedicalRecord->appointment->patient_height_unit == 'feet' ? 'feet' : 'm' }}
-                                            @else
+                                            <?php if($patientMedicalRecord->appointment->patient_height): ?>
+                                                <?php echo e($patientMedicalRecord->appointment->patient_height); ?>
+
+                                                <?php echo e($patientMedicalRecord->appointment->patient_height_unit == 'feet' ? 'feet' : 'm'); ?>
+
+                                            <?php else: ?>
                                                 N/A
-                                            @endif
+                                            <?php endif; ?>
                                         </span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Weight (In Kg)</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->appointment->patient_weight_snapshot ? $patientMedicalRecord->appointment->patient_weight_snapshot . ' kg' : 'N/A' }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->appointment->patient_weight_snapshot ? $patientMedicalRecord->appointment->patient_weight_snapshot . ' kg' : 'N/A'); ?></span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>BMI</strong><br>
                                         <span class="text-muted" id="bmi-value"
-                                            data-bmi="{{ $patientMedicalRecord->appointment->patient_bmi_snapshot ?? '' }}">{{ $patientMedicalRecord->appointment->patient_bmi_snapshot ?? 'N/A' }}</span>
+                                            data-bmi="<?php echo e($patientMedicalRecord->appointment->patient_bmi_snapshot ?? ''); ?>"><?php echo e($patientMedicalRecord->appointment->patient_bmi_snapshot ?? 'N/A'); ?></span>
                                         <button type="button" id="bmi-btn-underweight"
                                             class="btn btn-sm btn-outline-secondary ms-2"
                                             style="display: none; pointer-events: none;">Underweight</button>
@@ -463,7 +486,7 @@ if (
                     </div>
 
                     <!-- Medical Entries Summary -->
-                    @php
+                    <?php
                         // This is for "Current Treatment" - use physician record's current_treatment_other
 $physicianRec = $patientMedicalRecord->physicianRecord ?? null;
 $showCurrentTreatmentOther = false;
@@ -493,9 +516,9 @@ if ($physicianRec && $physicianRec->exists) {
                                 $showCurrentTreatmentOther = true;
                             }
                         }
-                    @endphp
+                    ?>
 
-                    @if ($patientMedicalRecord->record_type === 'physician' && $patientMedicalRecord->physicianRecord)
+                    <?php if($patientMedicalRecord->record_type === 'physician' && $patientMedicalRecord->physicianRecord): ?>
                         <!-- Physician Entries Summary -->
                         <div class="card mb-4">
                             <div class="card-header">
@@ -506,34 +529,36 @@ if ($physicianRec && $physicianRec->exists) {
                                     <div class="col-md-3">
                                         <strong>Type of Diabetes</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->physicianRecord->formatted_diabetes_type }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->physicianRecord->formatted_diabetes_type); ?></span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Family History of Diabetes</strong><br>
                                         <span
-                                            class="badge {{ $patientMedicalRecord->physicianRecord->family_history_diabetes ? 'bg-success' : 'bg-danger' }}">
-                                            {{ $patientMedicalRecord->physicianRecord->family_history_diabetes ? 'Yes' : 'No' }}
+                                            class="badge <?php echo e($patientMedicalRecord->physicianRecord->family_history_diabetes ? 'bg-success' : 'bg-danger'); ?>">
+                                            <?php echo e($patientMedicalRecord->physicianRecord->family_history_diabetes ? 'Yes' : 'No'); ?>
+
                                         </span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Current Treatment</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->physicianRecord->formatted_current_treatment }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->physicianRecord->formatted_current_treatment); ?></span>
                                     </div>
-                                    @if ($showCurrentTreatmentOther)
+                                    <?php if($showCurrentTreatmentOther): ?>
                                         <!-- Specify Other Treatment for Current Treatment (Physician Entry) -->
 
                                         <div class="col-md-3">
                                             <strong>Specify Other Treatment</strong><br>
                                             <span class="text-muted">
-                                                @if ($currentTreatmentOtherValue !== '' && is_string($currentTreatmentOtherValue))
-                                                    {{ $currentTreatmentOtherValue }}
-                                                @else
+                                                <?php if($currentTreatmentOtherValue !== '' && is_string($currentTreatmentOtherValue)): ?>
+                                                    <?php echo e($currentTreatmentOtherValue); ?>
+
+                                                <?php else: ?>
                                                     Not specified
-                                                @endif
+                                                <?php endif; ?>
                                             </span>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
 
 
@@ -542,11 +567,12 @@ if ($physicianRec && $physicianRec->exists) {
                                         <strong>Compliance</strong><br>
                                         <span
                                             class="badge
-                                                @if ($patientMedicalRecord->physicianRecord->compliance === 'good') bg-success
-                                                @elseif($patientMedicalRecord->physicianRecord->compliance === 'irregular') bg-warning
-                                                @elseif($patientMedicalRecord->physicianRecord->compliance === 'poor') bg-danger
-                                                @else bg-secondary @endif">
-                                            {{ $patientMedicalRecord->physicianRecord->formatted_compliance }}
+                                                <?php if($patientMedicalRecord->physicianRecord->compliance === 'good'): ?> bg-success
+                                                <?php elseif($patientMedicalRecord->physicianRecord->compliance === 'irregular'): ?> bg-warning
+                                                <?php elseif($patientMedicalRecord->physicianRecord->compliance === 'poor'): ?> bg-danger
+                                                <?php else: ?> bg-secondary <?php endif; ?>">
+                                            <?php echo e($patientMedicalRecord->physicianRecord->formatted_compliance); ?>
+
                                         </span>
                                     </div>
 
@@ -555,13 +581,15 @@ if ($physicianRec && $physicianRec->exists) {
                                     <div class="col-md-6">
                                         <strong>Blood Sugar Type</strong><br>
                                         <span class="text-muted">
-                                            {{ $patientMedicalRecord->physicianRecord->formatted_blood_sugar_type ?? 'N/A' }}
+                                            <?php echo e($patientMedicalRecord->physicianRecord->formatted_blood_sugar_type ?? 'N/A'); ?>
+
                                         </span>
                                     </div>
                                     <div class="col-md-6">
                                         <strong>Blood Sugar Value</strong><br>
                                         <span class="text-muted">
-                                            {{ $patientMedicalRecord->physicianRecord->blood_sugar_value ?? 'N/A' }}
+                                            <?php echo e($patientMedicalRecord->physicianRecord->blood_sugar_value ?? 'N/A'); ?>
+
                                         </span>
                                     </div>
 
@@ -579,34 +607,37 @@ if ($physicianRec && $physicianRec->exists) {
                                     <div class="col-md-3">
                                         <strong>Hypertension</strong><br>
                                         <span class="text-muted">
-                                            {{ $patientMedicalRecord->physicianRecord->hypertension ? 'Yes' : 'No' }}
+                                            <?php echo e($patientMedicalRecord->physicianRecord->hypertension ? 'Yes' : 'No'); ?>
+
                                         </span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Dyslipidemia</strong><br>
                                         <span class="text-muted">
-                                            {{ $patientMedicalRecord->physicianRecord->dyslipidemia ? 'Yes' : 'No' }}
+                                            <?php echo e($patientMedicalRecord->physicianRecord->dyslipidemia ? 'Yes' : 'No'); ?>
+
                                         </span>
                                     </div>
-                                    @if ($patientMedicalRecord->physicianRecord->retinopathy)
+                                    <?php if($patientMedicalRecord->physicianRecord->retinopathy): ?>
                                         <div class="col-md-3">
                                             <strong>Retinopathy</strong><br>
                                             <span
-                                                class="badge {{ $patientMedicalRecord->physicianRecord->formatted_retinopathy === 'Yes'
+                                                class="badge <?php echo e($patientMedicalRecord->physicianRecord->formatted_retinopathy === 'Yes'
                                                     ? 'bg-success'
                                                     : ($patientMedicalRecord->physicianRecord->formatted_retinopathy === 'No'
                                                         ? 'bg-danger'
-                                                        : 'bg-warning') }}">
-                                                {{ $patientMedicalRecord->physicianRecord->formatted_retinopathy }}
+                                                        : 'bg-warning')); ?>">
+                                                <?php echo e($patientMedicalRecord->physicianRecord->formatted_retinopathy); ?>
+
                                             </span>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
 
 
                                     <div class="col-md-3">
                                         <strong>Neuropathy</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->physicianRecord->formatted_neuropathy }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->physicianRecord->formatted_neuropathy); ?></span>
                                     </div>
 
                                 </div>
@@ -615,58 +646,58 @@ if ($physicianRec && $physicianRec->exists) {
                                     <div class="col-md-3">
                                         <strong>Nephropathy</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->physicianRecord->formatted_nephropathy }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->physicianRecord->formatted_nephropathy); ?></span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Cardiovascular</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->physicianRecord->formatted_cardiovascular }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->physicianRecord->formatted_cardiovascular); ?></span>
                                     </div>
                                     <div class="col-md-3">
                                         <strong>Foot Disease</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->physicianRecord->formatted_foot_disease }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->physicianRecord->formatted_foot_disease); ?></span>
                                     </div>
-                                    @if ($patientMedicalRecord->physicianRecord->others && !empty($patientMedicalRecord->physicianRecord->others))
+                                    <?php if($patientMedicalRecord->physicianRecord->others && !empty($patientMedicalRecord->physicianRecord->others)): ?>
                                         <div class="col-md-3">
                                             <strong>Others</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->physicianRecord->formatted_others }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->physicianRecord->formatted_others); ?></span>
 
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
 
 
                                 <!-- HBA1C Range -->
                                 <div class="row">
-                                    @if ($patientMedicalRecord->physicianRecord->others_details)
+                                    <?php if($patientMedicalRecord->physicianRecord->others_details): ?>
                                         <div class="col-md-3">
                                             <strong>Other Details</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->physicianRecord->others_details }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->physicianRecord->others_details); ?></span>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                     <div class="col-md-3">
                                         <strong>HBA1C Range</strong><br>
                                         <span
-                                            class="text-muted">{{ $patientMedicalRecord->physicianRecord->formatted_hba1c_range ?? 'N/A' }}</span>
+                                            class="text-muted"><?php echo e($patientMedicalRecord->physicianRecord->formatted_hba1c_range ?? 'N/A'); ?></span>
                                     </div>
-                                    @if ($patientMedicalRecord->physicianRecord->other_data)
+                                    <?php if($patientMedicalRecord->physicianRecord->other_data): ?>
                                         <div class="col-md-3">
                                             <strong>Other Data</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->physicianRecord->other_data }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->physicianRecord->other_data); ?></span>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
 
 
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    @if ($patientMedicalRecord->record_type === 'ophthalmologist' && $patientMedicalRecord->ophthalmologistRecord)
+                    <?php if($patientMedicalRecord->record_type === 'ophthalmologist' && $patientMedicalRecord->ophthalmologistRecord): ?>
                         <!-- Ophthalmologist Entry Summary -->
                         <div class="card mb-4">
                             <div class="card-header">
@@ -679,51 +710,51 @@ if ($physicianRec && $physicianRec->exists) {
                                         <div class="col-md-3">
                                             <strong>UCVA RE</strong><br>
                                             <span
-                                                class="text-muted ">{{ $patientMedicalRecord->ophthalmologistRecord->ucva_re }}</span>
+                                                class="text-muted "><?php echo e($patientMedicalRecord->ophthalmologistRecord->ucva_re); ?></span>
                                         </div>
                                         <div class="col-md-3" style="
     margin-bottom: 1rem;
 ">
                                             <strong>UCVA LE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->ucva_le }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->ucva_le); ?></span>
                                         </div>
 
                                         <div class="col-md-3">
                                             <strong>BCVA RE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->bcva_re }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->bcva_re); ?></span>
                                         </div>
                                         <div class="col-md-3">
                                             <strong>BCVA LE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->bcva_le }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->bcva_le); ?></span>
                                         </div>
 
 
                                         <div class="col-md-3">
                                             <strong>Anterior Segment RE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->anterior_segment_re }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->anterior_segment_re); ?></span>
                                         </div>
                                         <div class="col-md-3">
                                             <strong>Anterior Segment LE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->anterior_segment_le }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->anterior_segment_le); ?></span>
                                         </div>
 
 
                                         <div class="col-md-3">
                                             <strong>IOP RE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->iop_re }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->iop_re); ?></span>
                                         </div>
                                         <div class="col-md-3" style="
     margin-bottom: 1rem;
 ">
                                             <strong>IOP LE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->iop_le }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->iop_le); ?></span>
                                         </div>
 
 
@@ -731,30 +762,34 @@ if ($physicianRec && $physicianRec->exists) {
                                         <div class="col-md-3">
                                             <strong>Diabetic Retinopathy (DR) RE</strong><br>
                                             <span
-                                                class="badge {{ $patientMedicalRecord->ophthalmologistRecord->diabetic_retinopathy_re ? 'bg-success' : 'bg-danger' }}">
-                                                {{ $patientMedicalRecord->ophthalmologistRecord->diabetic_retinopathy_re ? 'Yes' : 'No' }}
+                                                class="badge <?php echo e($patientMedicalRecord->ophthalmologistRecord->diabetic_retinopathy_re ? 'bg-success' : 'bg-danger'); ?>">
+                                                <?php echo e($patientMedicalRecord->ophthalmologistRecord->diabetic_retinopathy_re ? 'Yes' : 'No'); ?>
+
                                             </span>
                                         </div>
                                         <div class="col-md-3">
                                             <strong>Diabetic Retinopathy (DR) LE</strong><br>
                                             <span
-                                                class="badge {{ $patientMedicalRecord->ophthalmologistRecord->diabetic_retinopathy ? 'bg-success' : 'bg-danger' }}">
-                                                {{ $patientMedicalRecord->ophthalmologistRecord->diabetic_retinopathy ? 'Yes' : 'No' }}
+                                                class="badge <?php echo e($patientMedicalRecord->ophthalmologistRecord->diabetic_retinopathy ? 'bg-success' : 'bg-danger'); ?>">
+                                                <?php echo e($patientMedicalRecord->ophthalmologistRecord->diabetic_retinopathy ? 'Yes' : 'No'); ?>
+
                                             </span>
                                         </div>
 
                                         <div class="col-md-3">
                                             <strong>Diabetic Macular Edema (DME) RE</strong><br>
                                             <span
-                                                class="badge {{ $patientMedicalRecord->ophthalmologistRecord->diabetic_macular_edema_re ? 'bg-success' : 'bg-danger' }}">
-                                                {{ $patientMedicalRecord->ophthalmologistRecord->diabetic_macular_edema_re ? 'Yes' : 'No' }}
+                                                class="badge <?php echo e($patientMedicalRecord->ophthalmologistRecord->diabetic_macular_edema_re ? 'bg-success' : 'bg-danger'); ?>">
+                                                <?php echo e($patientMedicalRecord->ophthalmologistRecord->diabetic_macular_edema_re ? 'Yes' : 'No'); ?>
+
                                             </span>
                                         </div>
                                         <div class="col-md-3">
                                             <strong>Diabetic Macular Edema (DME) LE</strong><br>
                                             <span
-                                                class="badge {{ $patientMedicalRecord->ophthalmologistRecord->diabetic_macular_edema ? 'bg-success' : 'bg-danger' }}">
-                                                {{ $patientMedicalRecord->ophthalmologistRecord->diabetic_macular_edema ? 'Yes' : 'No' }}
+                                                class="badge <?php echo e($patientMedicalRecord->ophthalmologistRecord->diabetic_macular_edema ? 'bg-success' : 'bg-danger'); ?>">
+                                                <?php echo e($patientMedicalRecord->ophthalmologistRecord->diabetic_macular_edema ? 'Yes' : 'No'); ?>
+
                                             </span>
                                         </div>
                                     </div>
@@ -763,40 +798,40 @@ if ($physicianRec && $physicianRec->exists) {
                                         <div class="col-md-3">
                                             <strong>Type of DR RE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->formatted_dr_type_re }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->formatted_dr_type_re); ?></span>
                                         </div>
                                         <div class="col-md-3">
                                             <strong>Type of DR LE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->formatted_dr_type }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->formatted_dr_type); ?></span>
                                         </div>
 
                                         <div class="col-md-3">
                                             <strong>Type of DME RE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->formatted_dme_type_re }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->formatted_dme_type_re); ?></span>
                                         </div>
                                         <div class="col-md-3">
                                             <strong>Type of DME LE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->formatted_dme_type }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->formatted_dme_type); ?></span>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-3">
                                             <strong>Investigations</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->formatted_investigations }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->formatted_investigations); ?></span>
                                         </div>
                                         <div class="col-md-3">
                                             <strong>Advised RE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->formatted_advised_re }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->formatted_advised_re); ?></span>
                                         </div>
                                         <div class="col-md-3">
                                             <strong>Advised LE</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->formatted_advised }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->formatted_advised); ?></span>
                                         </div>
 
                                     </div>
@@ -813,34 +848,34 @@ if ($physicianRec && $physicianRec->exists) {
                                 </div>
 
                                 <div class="row mt-3">
-                                    @if (
+                                    <?php if(
                                         $patientMedicalRecord->ophthalmologistRecord->treatment_done_date ||
-                                            $patientMedicalRecord->ophthalmologistRecord->review_date)
+                                            $patientMedicalRecord->ophthalmologistRecord->review_date): ?>
                                         <div class="col-md-3">
                                             <strong>Treatment Done Date</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->treatment_done_date ? $patientMedicalRecord->ophthalmologistRecord->treatment_done_date->format('M d, Y') : 'Not specified' }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->treatment_done_date ? $patientMedicalRecord->ophthalmologistRecord->treatment_done_date->format('M d, Y') : 'Not specified'); ?></span>
                                         </div>
                                         <div class="col-md-3" style="
     padding-left: 6px;">
                                             <strong>Review Date</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->review_date ? $patientMedicalRecord->ophthalmologistRecord->review_date->format('M d, Y') : 'Not specified' }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->review_date ? $patientMedicalRecord->ophthalmologistRecord->review_date->format('M d, Y') : 'Not specified'); ?></span>
                                         </div>
-                                    @endif
-                                    @if ($patientMedicalRecord->ophthalmologistRecord->other_remarks)
+                                    <?php endif; ?>
+                                    <?php if($patientMedicalRecord->ophthalmologistRecord->other_remarks): ?>
                                         <div class="col-md-3">
                                             <strong>Other Remarks</strong><br>
                                             <span
-                                                class="text-muted">{{ $patientMedicalRecord->ophthalmologistRecord->other_remarks }}</span>
+                                                class="text-muted"><?php echo e($patientMedicalRecord->ophthalmologistRecord->other_remarks); ?></span>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
 
 
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
 
                     <!-- Action Buttons -->
                     <div class="card">
@@ -860,7 +895,7 @@ if ($physicianRec && $physicianRec->exists) {
                                         </button>
                                         
 
-                                        <a href="{{ route('doctor.patients.medical-records', $patientMedicalRecord->patient->id) }}"
+                                        <a href="<?php echo e(route('doctor.patients.medical-records', $patientMedicalRecord->patient->id)); ?>"
                                             class="btn btn-secondary">
                                             <i class="fas fa-arrow-left me-2"></i>Back
                                         </a>
@@ -876,14 +911,14 @@ if ($physicianRec && $physicianRec->exists) {
     </div>
 
     <!--  BEGIN CUSTOM SCRIPTS FILE  -->
-    <x-slot:footerFiles>
-        <script src="{{ asset('plugins/notification/snackbar/snackbar.min.js') }}"></script>
-        <script src="{{ asset('plugins/sweetalerts2/sweetalerts2.min.js') }}"></script>
+     <?php $__env->slot('footerFiles', null, []); ?> 
+        <script src="<?php echo e(asset('plugins/notification/snackbar/snackbar.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('plugins/sweetalerts2/sweetalerts2.min.js')); ?>"></script>
 
         <script>
             function printDetails() {
                 // Open print-friendly version in new window and trigger print
-                const printUrl = '{{ route('doctor.medical.summary.print', $patientMedicalRecord->id) }}';
+                const printUrl = '<?php echo e(route('doctor.medical.summary.print', $patientMedicalRecord->id)); ?>';
                 const printWindow = window.open(printUrl, '_blank', 'width=800,height=600');
 
                 // Wait for the page to load, then trigger print
@@ -907,7 +942,7 @@ if ($physicianRec && $physicianRec->exists) {
                 });
 
                 // Generate PDF
-                const pdfUrl = '{{ route('doctor.medical.summary.pdf', $patientMedicalRecord->id) }}';
+                const pdfUrl = '<?php echo e(route('doctor.medical.summary.pdf', $patientMedicalRecord->id)); ?>';
                 window.location.href = pdfUrl;
 
                 // Close loading after a short delay
@@ -926,12 +961,12 @@ if ($physicianRec && $physicianRec->exists) {
         didOpen: () => Swal.showLoading()
     });
 
-    const url = "{{ route('doctor.medical.summary.whatsappMsg', $patientMedicalRecord->id) }}";
+    const url = "<?php echo e(route('doctor.medical.summary.whatsappMsg', $patientMedicalRecord->id)); ?>";
 
     fetch(url, {
         method: "POST",
         headers: {
-            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+            "X-CSRF-TOKEN": "<?php echo e(csrf_token()); ?>",
             "Accept": "application/json",
             "Content-Type": "application/json",
         }
@@ -994,11 +1029,11 @@ if ($physicianRec && $physicianRec->exists) {
                         });
 
                         // Send WhatsApp request
-                        fetch('{{ route('doctor.medical.summary.whatsapp', $patientMedicalRecord->id) }}', {
+                        fetch('<?php echo e(route('doctor.medical.summary.whatsapp', $patientMedicalRecord->id)); ?>', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    'X-CSRF-TOKEN': '<?php echo e(csrf_token()); ?>'
                                 },
                                 body: JSON.stringify({
                                     phone_number: result.value
@@ -1094,6 +1129,12 @@ if ($physicianRec && $physicianRec->exists) {
                 }
             });
         </script>
-    </x-slot>
+     <?php $__env->endSlot(); ?>
     <!--  END CUSTOM SCRIPTS FILE  -->
-</x-base-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a)): ?>
+<?php $component = $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a; ?>
+<?php unset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a); ?>
+<?php endif; ?>
+<?php /**PATH C:\Users\ANZO-KRUPALI\Desktop\sugarsightsaver1\resources\views/doctor/medical/summary.blade.php ENDPATH**/ ?>

@@ -98,6 +98,23 @@ class MedicalSummaryController extends Controller
         return $this->medicalReportService->generatePDF($patientMedicalRecord);
     }
 
+
+public function sendWhatsAppMsg(Request $request, $patientMedicalRecordId)
+{
+    $record = PatientMedicalRecord::with([
+        'patient',
+        'appointment.doctor',
+        'physicianRecord',
+        'ophthalmologistRecord'
+    ])->findOrFail($patientMedicalRecordId);
+
+    if ($record->appointment->doctor_id !== Auth::id()) {
+        return response()->json(['status' => false, 'message' => 'Unauthorized'], 403);
+    }
+
+    return $this->medicalReportService->generatePDFMsg($record);
+}
+
     /**
      * Send WhatsApp message with PDF via Wati
      */
@@ -197,6 +214,8 @@ class MedicalSummaryController extends Controller
             ], 500);
         }
     }
+
+
 
     /**
      * Test logo loading for debugging

@@ -155,3 +155,68 @@ if (!function_exists('getRouterValue')) {
         return $__getRoutingValue;
     }
 }
+
+
+
+if (!function_exists('sendWhatsapp')) {
+    function sendWhatsapp($toNumbers, $templateName, $components = [])
+    {
+
+        $url = "https://api.msg91.com/api/v5/whatsapp/whatsapp-outbound-message/bulk/";
+        $authKey =config('cred.whatsapp.MSG91_AUTH_KEY'); // store in .env
+        $integratedNumber = config('cred.whatsapp.MSG91_INTEGRATED_NUMBER');
+      
+        $payload = [
+            "integrated_number" => $integratedNumber,
+            "content_type" => "template",
+            "payload" => [
+                "messaging_product" => "whatsapp",
+                "type" => "template",
+                "template" => [
+                    "name" => $templateName,
+                    "language" => [
+                        "code" => "en",
+                        "policy" => "deterministic",
+                    ],
+                    "namespace" => "736b46bf_9c41_4f19_b128_85a4a5d4bfac",
+                    "to_and_components" => [
+                        [
+                            "to" => (array) $toNumbers, // ensure it's an array
+                            "components" => $components
+                        ]
+                    ],
+                ],
+            ],
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            "authkey: {$authKey}",
+        ]);
+
+        $response = curl_exec($ch);
+        if (curl_errno($ch)) {
+            $error = curl_error($ch);
+            curl_close($ch);
+            return ['status' => false, 'error' => $error];
+        }
+
+        curl_close($ch);
+        return json_decode($response, true);
+    }
+
+
+
+
+
+
+
+
+
+
+}
